@@ -1,0 +1,31 @@
+.instruction{
+    display: flex;
+    padding: 16px;
+}
+
+.instruction:not(:last-of-type){
+    border-bottom: 1px solid var(--gray-lt);
+}
+
+.number{
+    font-size: 1.5rem;
+    color: var(--gray-md);
+    font-weight: 900;
+    margin: 0;
+    margin-right: 16px;
+}
+
+.content{
+    flex-grow: 1;
+}
+
+.text{
+    margin: 4px 0 8px 0;
+}
+
+.ingredient{
+    font-size: .875rem;
+    color: var(--gray-text);
+    font-weight: 700;
+    margin: 4px 0;
+}

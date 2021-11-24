@@ -1,0 +1,11 @@
+<ol>
+    <li *ngFor="let portion of prepList" class="portion-block">
+        <h3>{{portion.name}}</h3>
+        <p *ngIf="portion.description">{{portion.description}}</p>
+        <ul *ngIf="portion.ingredients" class="ingredient-list">
+            <li *ngFor="let ingredient of portion.ingredients" class="ingredient">
+                {{ingredient}}
+            </li>
+        </ul>
+    </li>
+</ol>

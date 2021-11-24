@@ -1,0 +1,28 @@
+header{
+    background-color: white;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.15);
+}
+
+.inner{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main-nav{
+    display: flex;
+
+    /* aligns text with the main content */
+    margin-left: -16px;
+}
+
+.main-nav a{
+    padding: 16px;
+}
+
+.account-link{
+    padding: 16px;
+
+    /* aligns text with the main content */
+    margin-right: -16px;
+}

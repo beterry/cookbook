@@ -1,0 +1,14 @@
+<ol>
+    <li class="instruction" *ngFor="let instruction of instructions; let i = index">
+        <h3 class="number">{{i}}</h3>
+        <div class="content">
+            <p class="text">{{instruction.text}}</p>
+            <ul>
+                <li *ngFor="let ingredient of instruction.ingredients" class="ingredient">
+                    {{ingredient}}
+                </li>
+            </ul>
+            <p *ngIf="instruction.time" class="time">{{instruction.time}}</p>
+        </div>
+    </li>
+</ol>

@@ -1,1 +1,57 @@
 /* You can add global styles to this file, and also import other style files */
+:root{
+    --primary: #206a5d;
+    --bright: #95d800;
+    --muted: #bfdcae;
+
+    --gray-text: #9e9e95;
+    --gray-md: #c2c2b4;
+    --gray-lt: #e4e4d6;
+    --gray-bk: #f1f1e8;
+
+    --gutter: 16px;
+}
+
+*{
+    box-sizing: border-box;
+    font-family: 'Lato', sans-serif;
+}
+
+body{
+    background-color: var(--gray-bk);
+}
+
+h1{
+    font-size: 2rem;
+    font-weight: 900;
+    margin: 0;
+}
+
+a{
+    color: unset;
+    text-decoration: unset;
+}
+
+ul, ol{
+    list-style-type: none;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 0px;
+}
+
+.max-width-wrapper{
+    max-width: 1200px;
+    padding: 0 var(--gutter);
+    margin: 0 auto;
+}
+
+
+/* TODO: Make breakpoints into variables */
+@media screen and (max-width: 800px){
+    .full-width-phone{
+        margin-left: calc(var(--gutter) * -1);
+        width: calc(100% + (var(--gutter) * 2));
+    }
+}

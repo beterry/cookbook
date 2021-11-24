@@ -1,0 +1,17 @@
+li{
+    display: flex;
+    justify-content: space-between;
+    padding: 16px;
+}
+
+li:not(:last-of-type){
+    border-bottom: 1px solid var(--gray-lt);
+}
+
+p{
+    margin: 0;
+}
+
+.quantity{
+    color: var(--gray-text);
+}
