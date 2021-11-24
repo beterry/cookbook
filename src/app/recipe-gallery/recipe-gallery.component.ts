@@ -5,7 +5,7 @@ import { RecipeService } from '../recipe.service';
 @Component({
     selector: 'app-recipe-gallery',
     templateUrl: './recipe-gallery.component.html',
-    styleUrls: ['./recipe-gallery.component.css'],
+    styleUrls: ['./recipe-gallery.component.scss'],
 })
 export class RecipeGalleryComponent implements OnInit {
     recipes: Recipe[] = [];

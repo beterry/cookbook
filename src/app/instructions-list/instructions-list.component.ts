@@ -4,7 +4,7 @@ import { Instruction } from '../recipe.model';
 @Component({
     selector: 'app-instructions-list',
     templateUrl: './instructions-list.component.html',
-    styleUrls: ['./instructions-list.component.css'],
+    styleUrls: ['./instructions-list.component.scss'],
 })
 export class InstructionsListComponent implements OnInit {
     @Input() instructions?: Instruction[];
