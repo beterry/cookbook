@@ -3,7 +3,7 @@ import { Recipe, Ingredient, Prep, Instruction} from './recipe.model';
 export const RECIPES: Recipe[] = [
     {
         id: "000",
-        name: 'Creamy Cajun Chicken with Bell Pepper & Kale Saute',
+        name: 'Creamy Cajun Chicken',
         imageURL: 'https://cdn-uploads.mealime.com/uploads/recipe/thumbnail/1479/presentation_099c3610-b0d1-46b1-8402-57817131d4c6.jpeg',
         ingredients: [
             {

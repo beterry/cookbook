@@ -1,0 +1,9 @@
+<li class="ingredient" [class.completed]="completed">
+    <button class="check-box" (click)="toggleCompleted()">
+        <span class="material-icons">
+            done
+        </span>
+    </button>
+    <p class="name">{{ item.name }}</p>
+    <p class="quantity">{{ item.quantity }}</p>
+</li>

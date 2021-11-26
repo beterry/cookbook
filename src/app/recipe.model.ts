@@ -24,3 +24,8 @@ export interface Instruction {
     ingredients?: string[];
     time?: string;
 }
+
+export interface IngredientSection {
+    title: string;
+    ingredients: Ingredient[];
+}

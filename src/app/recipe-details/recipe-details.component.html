@@ -6,7 +6,7 @@
                 <img src="assets/icons/icon-ellipsis.svg" alt="menu">
             </button>
             <div class="action-dropdown" *ngIf="showActions">
-                <button class="action-btn">Add to List</button>
+                <button class="action-btn" (click)="handleAddToList()">Add to List</button>
                 <button class="action-btn">Edit</button>
             </div>
         </div>

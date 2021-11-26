@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { RecipeService } from '../recipe.service';
 import { Recipe } from '../recipe.model';
+import { ShoppingListService } from '../shopping-list.service';
 
 @Component({
     selector: 'app-recipe-details',
@@ -10,13 +11,14 @@ import { Recipe } from '../recipe.model';
     styleUrls: ['./recipe-details.component.scss'],
 })
 export class RecipeDetailsComponent implements OnInit {
-    recipe: Recipe | undefined;
+    recipe?: Recipe;
     tab = 'ingredients';
     showActions = false;
 
     constructor(
         private route: ActivatedRoute,
         private recipeService: RecipeService,
+        private shoppingListService: ShoppingListService,
         private location: Location
     ) {}
 
@@ -41,5 +43,10 @@ export class RecipeDetailsComponent implements OnInit {
 
     toggleActionDropdown(){
         this.showActions = !this.showActions;
+    }
+
+    handleAddToList(){
+        this.shoppingListService.addIngredients(this.recipe!.ingredients);
+        this.showActions = false;
     }
 }

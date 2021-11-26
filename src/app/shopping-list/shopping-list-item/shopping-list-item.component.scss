@@ -1,0 +1,50 @@
+:host:not(:last-of-type){
+    .ingredient{
+        border-bottom: 1px solid var(--gray-lt);
+    }
+}
+
+.ingredient{
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 0;
+}
+
+.name, .quantity{
+    margin: 0;
+}
+
+.quantity{
+    color: var(--gray-text);
+}
+
+.check-box{
+    width: 24px;
+    height: 24px;
+    border: 1px solid var(--gray-lt);
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gray-md);
+
+    .material-icons{
+        font-size: 16px;
+    }
+}
+
+// styles for completed item
+.ingredient.completed{
+    .check-box{
+        background-color: var(--primary);
+        border: none;
+        color: white;
+    }
+
+    .name{
+        text-decoration: line-through;
+    }
+}

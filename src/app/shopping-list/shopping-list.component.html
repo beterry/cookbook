@@ -1,1 +1,10 @@
-<p>shopping-list works!</p>
+<h1>Shopping List</h1>
+
+<ul>
+    <li class="section" *ngFor="let section of sections">
+        <h2 class="title">{{ section.title }}</h2>
+        <ul>
+            <app-shopping-list-item *ngFor="let ingredient of section.ingredients" [item]="ingredient"></app-shopping-list-item>
+        </ul>
+    </li>
+</ul>
