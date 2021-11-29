@@ -1,0 +1,72 @@
+<form [formGroup]="recipeForm" (ngSubmit)="handleSubmit()">
+    <h1>Edit Recipe</h1>
+    <button class="form-button save" type="submit" [disabled]="!recipeForm.valid">Save</button>
+
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input id="name" type="text" formControlName="name">
+    </div>
+
+    <div class="form-group">
+        <label for="image">Image</label>
+        <input id="image" type="text" formControlName="imageURL">
+        <img class="img-preview" [src]="recipeForm.value.imageURL" alt=""/>
+    </div>
+
+    <h2>Ingredients</h2>
+    <section formArrayName="ingredients">
+        <div class="form-group ingredient header">
+            <label>Name</label>
+            <label>Quantity</label>
+        </div>
+        <div class="form-group ingredient" *ngFor="let ingredient of ingredients.controls; let i = index" [formGroupName]="i">
+            <input type="text" formControlName="name">
+            <input type="text" formControlName="quantity">
+        </div>
+    </section>
+
+    <h2>Preparation</h2>
+    <section formArrayName="prep">
+        <div class="form-group prep" *ngFor="let step of prep.controls; let i = index" [formGroupName]="i">
+            <h3>{{recipeForm.value.prep[i].name}} Prep</h3>
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" formControlName="name">
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea class="prep-description" rows="3" formControlName="description"></textarea>
+            </div>
+            <div formArrayName="ingredients">
+                <label>Ingredients</label>
+                <div class="form-group step-ingredient" *ngFor="let ingredient of getPrepIngredients(i).controls; let j = index">
+                    <input type="text" [formControlName]="j">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <h2>Instructions</h2>
+    <section formArrayName="instructions">
+        <div class="form-group instruction" *ngFor="let step of instructions.controls; let i = index" [formGroupName]="i">
+            <h3 class="instruction-number">{{ i }}</h3>
+            <div>
+                <div>
+                    <label>Text</label>
+                    <textarea rows="3" formControlName="text"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Time</label>
+                    <input type="text" formControlName="time">
+                </div>
+                <div formArrayName="ingredients">
+                    <label>Ingredients</label>
+                    <div class="form-group step-ingredient" *ngFor="let ingredient of getInstructionIngredients(i).controls; let j = index">
+                        <input type="text" [formControlName]="j">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</form>

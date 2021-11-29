@@ -18,6 +18,10 @@ header{
 
 .main-nav a{
     padding: 16px;
+
+    &.active{
+        background-color: var(--gray-lt);
+    }
 }
 
 .account-link{

@@ -29,6 +29,7 @@ export const RECIPES: Recipe[] = [
             },
             {
                 name: 'Butter portion 1',
+                description: '',
                 ingredients: [
                     '2 tbsp butter',
                 ]
@@ -37,12 +38,15 @@ export const RECIPES: Recipe[] = [
         instructions: [
             {
                 text: 'Preheat a skillet over medium-high heat',
+                ingredients: [],
+                time: '',
             },
             {
                 text: 'Once the skillet is hot, add butter and swirl to coat the bottom',
                 ingredients: [
                     'butter portion 1',
-                ]
+                ],
+                time: '',
             },
         ]
     },
@@ -77,10 +81,12 @@ export const RECIPES: Recipe[] = [
                 text: 'Pour the mixture into a large cassarole dish',
                 ingredients: [
                     'Corn mixture',
-                ]
+                ],
+                time: '',
             },
             {
                 text: 'Bake the mixture for 1 hour',
+                ingredients: [],
                 time: '1 hour'
             },
         ]

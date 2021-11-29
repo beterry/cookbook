@@ -15,14 +15,14 @@ export interface Ingredient {
 
 export interface Prep {
     name: string;
-    description?: string;
+    description: string;
     ingredients: string[];
 }
 
 export interface Instruction {
     text: string;
-    ingredients?: string[];
-    time?: string;
+    ingredients: string[];
+    time: string;
 }
 
 export interface IngredientSection {

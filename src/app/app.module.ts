@@ -11,6 +11,8 @@ import { IngredientListComponent } from './ingredient-list/ingredient-list.compo
 import { PrepListComponent } from './prep-list/prep-list.component';
 import { InstructionsListComponent } from './instructions-list/instructions-list.component';
 import { ShoppingListItemComponent } from './shopping-list/shopping-list-item/shopping-list-item.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RecipeFormComponent } from './recipe-form/recipe-form.component';
 
 @NgModule({
   declarations: [
@@ -22,11 +24,13 @@ import { ShoppingListItemComponent } from './shopping-list/shopping-list-item/sh
     IngredientListComponent,
     PrepListComponent,
     InstructionsListComponent,
-    ShoppingListItemComponent
+    ShoppingListItemComponent,
+    RecipeFormComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

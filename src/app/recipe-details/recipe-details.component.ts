@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { RecipeService } from '../recipe.service';
 import { Recipe } from '../recipe.model';
@@ -11,7 +11,7 @@ import { ShoppingListService } from '../shopping-list.service';
     styleUrls: ['./recipe-details.component.scss'],
 })
 export class RecipeDetailsComponent implements OnInit {
-    recipe?: Recipe;
+    recipe: Recipe;
     tab = 'ingredients';
     showActions = false;
 
@@ -19,7 +19,8 @@ export class RecipeDetailsComponent implements OnInit {
         private route: ActivatedRoute,
         private recipeService: RecipeService,
         private shoppingListService: ShoppingListService,
-        private location: Location
+        private location: Location,
+        private router: Router,
     ) {}
 
     ngOnInit(): void {
