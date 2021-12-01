@@ -1,0 +1,30 @@
+
+@mixin btn {
+    background-color: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 100%;
+    color: var(--primary);
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: .875rem;
+    letter-spacing: .7px;
+    cursor: pointer;
+    border-radius: 4px;
+
+    &:hover{
+        background-color: var(--gray-lt);
+    }
+}
+
+.btn-text{
+    @include btn;
+}
+
+.btn-icon{
+    @include btn;
+    width: 40px;
+}

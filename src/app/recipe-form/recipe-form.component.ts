@@ -72,6 +72,33 @@ export class RecipeFormComponent implements OnInit {
         console.warn(this.recipeForm.value);
     }
 
+    handleAddIngredient(){
+        this.ingredients.push(this.builder.group({
+            name: '',
+            quantity: '',
+        }))
+    }
+
+    handleDeleteIngredient(index: number){
+        this.ingredients.removeAt(index);
+    }
+
+    handleAddPrepIngredient(prepIndex: number){
+        this.getPrepIngredients(prepIndex).push(this.builder.control(''));
+    }
+
+    handleDeletePrepIngredient(prepIndex: number, ingredientIndex: number){
+        this.getPrepIngredients(prepIndex).removeAt(ingredientIndex);
+    }
+
+    handleAddInstructionIngredient(stepIndex: number){
+        this.getInstructionIngredients(stepIndex).push(this.builder.control(''));
+    }
+
+    handleDeleteInstructionIngredient(stepIndex: number, ingredientIndex: number){
+        this.getInstructionIngredients(stepIndex).removeAt(ingredientIndex);
+    }
+
     composeIngredientFormArray(ingredients: Ingredient[]):FormArray {
         let ingredientFormArray = this.builder.array([]);
 
