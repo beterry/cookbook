@@ -31,6 +31,24 @@ input, textarea{
     line-height: 1.35;
 }
 
+.sticky-buttons{
+    position: fixed;
+    bottom: var(--spacer);
+    left: var(--spacer);
+    right: var(--spacer);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+
+    .save, .delete{
+       box-shadow: 0 3px 10px rgba($color: #000000, $alpha: .35);
+    }
+
+    .delete{
+        background-color: var(--danger);
+    }
+}
+
 .ingredients-ctn{
     display: grid;
     gap: 8px;
@@ -51,9 +69,14 @@ input, textarea{
     }
 
     &.prep, &.instruction{
-        border-top: 1px solid var(--gray-lt);
+        border-bottom: 1px solid var(--gray-lt);
         padding: 16px 0;
         margin: 0;
+        
+        &:first-of-type{
+            border-top: 1px solid var(--gray-lt);
+
+        }
     }
 
     &.step-ingredient{
@@ -62,11 +85,21 @@ input, textarea{
         gap: 8px;
         margin: 0;
     }
+}
 
-    &.instruction{
+.step-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h3{
+        margin: 0;
+    }
+
+    .button-suite{
         display: grid;
-        grid-template-columns: auto 1fr;
-        gap: 16px;
+        grid-template-columns: repeat(3, auto);
+        gap: 8px;
     }
 }
 

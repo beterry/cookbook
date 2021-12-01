@@ -83,12 +83,84 @@ export class RecipeFormComponent implements OnInit {
         this.ingredients.removeAt(index);
     }
 
+    handleAddPrepStep(){
+        this.prep.push(this.getBlankPrepStep());
+    }
+
+    handleDeletePrepStep(index: number){
+        this.prep.removeAt(index);
+    }
+
+    handlePrepStepUp(index: number){
+        //-- step is already at the top
+        if (index <= 0){
+            return;
+        }
+
+        //-- grab control that's moving
+        const movingStep = this.prep.controls[index];
+
+        //-- remove and then re-add
+        this.prep.removeAt(index);
+        this.prep.insert(index - 1, movingStep);
+    }
+
+    handlePrepStepDown(index: number){
+        //-- step is already at the bottom
+        if (index >= this.prep.length){
+            return;
+        }
+
+        //-- grab control that's moving
+        const movingStep = this.prep.controls[index];
+
+        //-- remove and then re-add
+        this.prep.removeAt(index);
+        this.prep.insert(index + 1, movingStep);
+    }
+
     handleAddPrepIngredient(prepIndex: number){
         this.getPrepIngredients(prepIndex).push(this.builder.control(''));
     }
 
     handleDeletePrepIngredient(prepIndex: number, ingredientIndex: number){
         this.getPrepIngredients(prepIndex).removeAt(ingredientIndex);
+    }
+
+    handleAddInstruction(){
+        this.instructions.push(this.getBlankInstruction());
+    }
+
+    handleDeleteInstruction(index: number){
+        this.instructions.removeAt(index);
+    }
+
+    handleInstructionUp(index: number){
+        //-- step is already at the top
+        if (index <= 0){
+            return;
+        }
+
+        //-- grab control that's moving
+        const movingStep = this.instructions.controls[index];
+
+        //-- remove and then re-add
+        this.instructions.removeAt(index);
+        this.instructions.insert(index - 1, movingStep);
+    }
+
+    handleInstructionDown(index: number){
+        //-- step is already at the bottom
+        if (index >= this.instructions.length){
+            return;
+        }
+
+        //-- grab control that's moving
+        const movingStep = this.instructions.controls[index];
+
+        //-- remove and then re-add
+        this.instructions.removeAt(index);
+        this.instructions.insert(index + 1, movingStep);
     }
 
     handleAddInstructionIngredient(stepIndex: number){
@@ -139,6 +211,14 @@ export class RecipeFormComponent implements OnInit {
         return prepFormArray;
     }
 
+    getBlankPrepStep(): FormGroup{
+        return this.builder.group({
+            name: '',
+            description: '',
+            ingredients: this.builder.array([])
+        })
+    }
+
     composeInstructionsFormArray(instructions: Instruction[]): FormArray{
         let instructionsFormArray = this.builder.array([]);
 
@@ -160,5 +240,13 @@ export class RecipeFormComponent implements OnInit {
         }
 
         return instructionsFormArray;
+    }
+
+    getBlankInstruction(): FormGroup{
+        return this.builder.group({
+            text: '',
+            time: '',
+            ingredients: this.builder.array([])
+        })
     }
 }

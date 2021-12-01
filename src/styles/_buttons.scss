@@ -14,6 +14,7 @@
     letter-spacing: .7px;
     cursor: pointer;
     border-radius: 4px;
+    line-height: 1;
 
     &:hover{
         background-color: var(--gray-lt);
@@ -22,6 +23,25 @@
 
 .btn-text{
     @include btn;
+}
+
+.btn-outline{
+    @include btn;
+    padding: 0 16px;
+    border: 1px solid var(--primary);
+}
+
+.btn-contained{
+    @include btn;
+    padding: 0 16px;
+    background-color: var(--primary);
+    color: white;
+    box-shadow: 0px 2px 4px rgba($color: #000000, $alpha: .1);
+    
+    &:hover{
+        background-color: var(--primary-v);
+        box-shadow: 0px 2px 3px rgba($color: #000000, $alpha: .1);
+    }
 }
 
 .btn-icon{

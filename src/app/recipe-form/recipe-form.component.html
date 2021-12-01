@@ -1,6 +1,9 @@
 <form [formGroup]="recipeForm" (ngSubmit)="handleSubmit()">
     <h1>Edit Recipe</h1>
-    <button class="form-button save" type="submit" [disabled]="!recipeForm.valid">Save</button>
+    <div class="sticky-buttons">
+        <button class="btn-contained save" type="submit" [disabled]="!recipeForm.valid">Save</button>
+        <button class="btn-contained delete" type="button">Delete</button>
+    </div>
 
     <div class="form-group">
         <label for="name">Name</label>
@@ -35,7 +38,26 @@
     <h2>Preparation</h2>
     <section formArrayName="prep">
         <div class="form-group prep" *ngFor="let step of prep.controls; let i = index" [formGroupName]="i">
-            <h3>{{recipeForm.value.prep[i].name}} Prep</h3>
+            <div class="step-header">
+                <h3>{{recipeForm.value.prep[i].name}} Prep</h3>
+                <div class="button-suite">
+                    <button class="btn-icon" type="button" (click)="handleDeletePrepStep(i)">
+                        <span class="material-icons">
+                            delete
+                        </span>
+                    </button>
+                    <button class="btn-icon" type="button" (click)="handlePrepStepUp(i)">
+                        <span class="material-icons">
+                            arrow_upward
+                        </span>
+                    </button>
+                    <button class="btn-icon" type="button" (click)="handlePrepStepDown(i)">
+                        <span class="material-icons">
+                            arrow_downward
+                        </span>
+                    </button>
+                </div>
+            </div>
             <div class="form-group">
                 <label>Name</label>
                 <input type="text" formControlName="name">
@@ -57,14 +79,40 @@
                 <button class="btn-text" (click)="handleAddPrepIngredient(i)" type="button">Add Ingredient</button>
             </div>
         </div>
+        <div class="padding-sm"></div>
+        <button class="btn-contained" type="button" (click)="handleAddPrepStep()">
+            <span class="material-icons">
+                add
+            </span>
+            Add Prep Step
+        </button>
     </section>
 
     <h2>Instructions</h2>
     <section formArrayName="instructions">
         <div class="form-group instruction" *ngFor="let step of instructions.controls; let i = index" [formGroupName]="i">
-            <h3 class="instruction-number">{{ i }}</h3>
+            <div class="step-header">
+                <h3>Step {{i + 1}}</h3>
+                <div class="button-suite">
+                    <button class="btn-icon" type="button" (click)="handleDeleteInstruction(i)">
+                        <span class="material-icons">
+                            delete
+                        </span>
+                    </button>
+                    <button class="btn-icon" type="button" (click)="handleInstructionUp(i)">
+                        <span class="material-icons">
+                            arrow_upward
+                        </span>
+                    </button>
+                    <button class="btn-icon" type="button" (click)="handleInstructionDown(i)">
+                        <span class="material-icons">
+                            arrow_downward
+                        </span>
+                    </button>
+                </div>
+            </div>
             <div>
-                <div>
+                <div class="form-group">
                     <label>Text</label>
                     <textarea rows="3" formControlName="text" placeholder="Explain how to complete this step"></textarea>
                 </div>
@@ -86,6 +134,13 @@
                 </div>
             </div>
         </div>
+        <div class="padding-sm"></div>
+        <button class="btn-contained" type="button" (click)="handleAddInstruction()">
+            <span class="material-icons">
+                add
+            </span>
+            Add Instruction
+        </button>
     </section>
 
 </form>
