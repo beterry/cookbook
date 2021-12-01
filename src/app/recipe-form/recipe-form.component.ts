@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, Validators, FormBuilder } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RecipeService } from '../recipe.service';
 import { Location } from '@angular/common';
 import { Ingredient, Recipe, Prep, Instruction } from '../recipe.model';
@@ -36,6 +36,7 @@ export class RecipeFormComponent implements OnInit {
     }
 
     constructor(
+        private router: Router,
         private route: ActivatedRoute,
         private recipeService: RecipeService,
         private location: Location,
@@ -68,8 +69,14 @@ export class RecipeFormComponent implements OnInit {
     }
 
     handleSubmit(){
-        //TODO: save the recipe by using the recipe service
         console.warn(this.recipeForm.value);
+        this.recipeService.updateRecipe(this.id, this.recipeForm.value);
+        this.router.navigate(['../'], {relativeTo: this.route});
+    }
+
+    handleDeleteRecipe(){
+        this.recipeService.deleteRecipe(this.id);
+        this.router.navigate(['/recipes']);
     }
 
     handleAddIngredient(){

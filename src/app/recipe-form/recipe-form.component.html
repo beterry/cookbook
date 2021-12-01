@@ -2,7 +2,7 @@
     <h1>Edit Recipe</h1>
     <div class="sticky-buttons">
         <button class="btn-contained save" type="submit" [disabled]="!recipeForm.valid">Save</button>
-        <button class="btn-contained delete" type="button">Delete</button>
+        <button class="btn-contained delete" type="button" (click)="handleDeleteRecipe()">Delete</button>
     </div>
 
     <div class="form-group">

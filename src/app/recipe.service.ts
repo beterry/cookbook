@@ -7,14 +7,38 @@ import { Observable, of } from 'rxjs';
     providedIn: 'root',
 })
 export class RecipeService {
+    recipes: Recipe[] = RECIPES;
+
     constructor() {}
 
     getRecipes(): Observable<Recipe[]>{
-        return of(RECIPES);
+        return of(this.recipes);
     }
 
     getRecipe(id: string): Observable<Recipe>{
-        const recipe = RECIPES.find(r => r.id === id)!;
+        const recipe = this.recipes.find(r => r.id === id)!;
         return of(recipe);
+    }
+
+    updateRecipe(id: string, newRecipe: Recipe){
+        const index = this.recipes.findIndex(recipe => recipe.id === id);
+
+        //-- recipe does not exist
+        if (index < 0){
+            return;
+        }
+
+        this.recipes.splice(index, 1, {...newRecipe, id: id});
+    }
+
+    deleteRecipe(id: string){
+        const index = this.recipes.findIndex(recipe => recipe.id === id);
+
+        //-- recipe does not exist
+        if (index < 0){
+            return;
+        }
+
+        this.recipes.splice(index, 1);
     }
 }
