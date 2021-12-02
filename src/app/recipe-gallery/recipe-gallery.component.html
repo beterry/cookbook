@@ -1,7 +1,14 @@
 <h1>Recipes</h1>
 <ul class="recipe-grid">
+
+        <a routerLink="/recipe/new" class="new-recipe">
+            <span class="material-icons">
+                add
+            </span>
+        </a>
+
     <li class="recipe-card" *ngFor="let recipe of recipes">
-        <a routerLink="/recipe/{{recipe.id}}">
+        <a routerLink="/recipe/details/{{recipe.id}}">
             <img [src]="recipe.imageURL" alt="">
             <h3>{{ recipe.name }}</h3>
         </a>

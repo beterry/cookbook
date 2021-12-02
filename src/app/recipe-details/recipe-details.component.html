@@ -7,7 +7,7 @@
             </button>
             <div class="action-dropdown" *ngIf="showActions">
                 <button class="action-btn" (click)="handleAddToList()">Add to List</button>
-                <a class="action-btn" routerLink="edit">Edit</a>
+                <a class="action-btn" [routerLink]="['/recipe','edit', recipe.id]">Edit</a>
             </div>
         </div>
     </div>

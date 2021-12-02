@@ -11,6 +11,7 @@ import { Ingredient, Recipe, Prep, Instruction } from '../recipe.model';
     styleUrls: ['./recipe-form.component.scss'],
 })
 export class RecipeFormComponent implements OnInit {
+    formType: string;
     id: string;
     recipe: Recipe;
     recipeForm: FormGroup;
@@ -44,18 +45,13 @@ export class RecipeFormComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.getRecipe();
-    }
+        this.formType = this.route.snapshot.paramMap.get('form') || 'new';
 
-    initForm(recipe: Recipe): void {
-        //-- insert recipe details into the form
-        this.recipeForm = this.builder.group({
-            name: [recipe.name, Validators.required],
-            imageURL: [recipe.imageURL],
-            ingredients: this.composeIngredientFormArray(recipe.ingredients),
-            prep: this.composePrepFormArray(recipe.prep),
-            instructions: this.composeInstructionsFormArray(recipe.instructions),
-        })
+        if (this.formType === 'new'){
+            this.initForm();
+        }else {
+            this.getRecipe();
+        }
     }
 
     getRecipe(): void{
@@ -68,20 +64,51 @@ export class RecipeFormComponent implements OnInit {
             });
     }
 
+    initForm(recipe?: Recipe): void {
+        //-- insert recipe details into the form
+        if (recipe){
+            this.recipeForm = this.builder.group({
+                name: [recipe.name, Validators.required],
+                imageURL: [recipe.imageURL, Validators.required],
+                ingredients: this.composeIngredientFormArray(recipe.ingredients),
+                prep: this.composePrepFormArray(recipe.prep),
+                instructions: this.composeInstructionsFormArray(recipe.instructions),
+            })
+        }else {
+            this.recipeForm = this.builder.group({
+                name: ['', Validators.required],
+                imageURL: ['', Validators.required],
+                ingredients: this.builder.array([]),
+                prep: this.builder.array([]),
+                instructions: this.builder.array([]),
+            })
+        }
+    }
+
     handleSubmit(){
-        console.warn(this.recipeForm.value);
-        this.recipeService.updateRecipe(this.id, this.recipeForm.value);
-        this.router.navigate(['../'], {relativeTo: this.route});
+        console.warn(this.recipeForm);
+
+        if (this.formType === 'new'){
+            this.recipeService.addRecipe(this.recipeForm.value);
+            this.router.navigate(['/recipes']);
+        }else{
+            this.recipeService.updateRecipe(this.id, this.recipeForm.value);
+            this.router.navigate(['/recipe', 'details', this.id]);
+        }
     }
 
     handleDeleteRecipe(){
-        this.recipeService.deleteRecipe(this.id);
-        this.router.navigate(['/recipes']);
+        if (this.formType === 'new'){
+            this.router.navigate(['/recipes']);
+        }else {
+            this.recipeService.deleteRecipe(this.id);
+            this.router.navigate(['/recipes']);
+        }
     }
 
     handleAddIngredient(){
         this.ingredients.push(this.builder.group({
-            name: '',
+            name: ['', Validators.required],
             quantity: '',
         }))
     }
@@ -127,7 +154,7 @@ export class RecipeFormComponent implements OnInit {
     }
 
     handleAddPrepIngredient(prepIndex: number){
-        this.getPrepIngredients(prepIndex).push(this.builder.control(''));
+        this.getPrepIngredients(prepIndex).push(this.builder.control('', Validators.required));
     }
 
     handleDeletePrepIngredient(prepIndex: number, ingredientIndex: number){
@@ -171,7 +198,7 @@ export class RecipeFormComponent implements OnInit {
     }
 
     handleAddInstructionIngredient(stepIndex: number){
-        this.getInstructionIngredients(stepIndex).push(this.builder.control(''));
+        this.getInstructionIngredients(stepIndex).push(new FormControl('', Validators.required));
     }
 
     handleDeleteInstructionIngredient(stepIndex: number, ingredientIndex: number){
@@ -185,7 +212,7 @@ export class RecipeFormComponent implements OnInit {
             ingredients.forEach(ingredient => {
                 ingredientFormArray.push(
                     this.builder.group({
-                        name: [ingredient.name],
+                        name: [ingredient.name, Validators.required],
                         quantity: [ingredient.quantity],
                     })
                 )
@@ -203,12 +230,12 @@ export class RecipeFormComponent implements OnInit {
                 //-- 1. create a child FormArray for the step's ingredients
                 let ingredientFormArray = this.builder.array([]);
                 step.ingredients.forEach(ingredient => {
-                    ingredientFormArray.push(this.builder.control(ingredient));
+                    ingredientFormArray.push(this.builder.control(ingredient, Validators.required));
                 })
 
                 //-- 2. assign remaining value to parent FormArray
                 prepFormArray.push(this.builder.group({
-                    name: step.name,
+                    name: [step.name, Validators.required],
                     description: step.description,
                     ingredients: ingredientFormArray,
                 }))
@@ -220,7 +247,7 @@ export class RecipeFormComponent implements OnInit {
 
     getBlankPrepStep(): FormGroup{
         return this.builder.group({
-            name: '',
+            name: ['', Validators.required],
             description: '',
             ingredients: this.builder.array([])
         })
@@ -234,12 +261,12 @@ export class RecipeFormComponent implements OnInit {
                 //-- 1. create a child FormArray for the step's ingredients
                 let ingredientFormArray = this.builder.array([]);
                 step.ingredients.forEach(ingredient => {
-                    ingredientFormArray.push(this.builder.control(ingredient));
+                    ingredientFormArray.push(this.builder.control(ingredient, Validators.required));
                 })
 
                 //-- 2. assign remaining value to parent FormArray
                 instructionsFormArray.push(this.builder.group({
-                    text: step.text,
+                    text: [step.text, Validators.required],
                     time: step.time,
                     ingredients: ingredientFormArray,
                 }))
@@ -251,7 +278,7 @@ export class RecipeFormComponent implements OnInit {
 
     getBlankInstruction(): FormGroup{
         return this.builder.group({
-            text: '',
+            text: ['', Validators.required],
             time: '',
             ingredients: this.builder.array([])
         })

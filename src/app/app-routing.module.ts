@@ -8,8 +8,9 @@ import { RecipeFormComponent } from './recipe-form/recipe-form.component';
 const routes: Routes = [
     { path: '', redirectTo: '/recipes', pathMatch: 'full' },
     { path: 'recipes', component: RecipeGalleryComponent },
-    { path: 'recipe/:id', component: RecipeDetailsComponent },
-    { path: 'recipe/:id/edit', component: RecipeFormComponent },
+    { path: 'recipe/details/:id', component: RecipeDetailsComponent },
+    { path: 'recipe/:form/:id', component: RecipeFormComponent },
+    { path: 'recipe/:form', component: RecipeFormComponent },
     { path: 'list', component: ShoppingListComponent },
 ]
 

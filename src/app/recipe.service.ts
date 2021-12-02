@@ -20,6 +20,10 @@ export class RecipeService {
         return of(recipe);
     }
 
+    addRecipe(newRecipe: Recipe){
+        this.recipes.push({...newRecipe, id: this.recipes[this.recipes.length - 1].id + '1'});
+    }
+
     updateRecipe(id: string, newRecipe: Recipe){
         const index = this.recipes.findIndex(recipe => recipe.id === id);
 

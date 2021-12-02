@@ -4,15 +4,27 @@
 /* You can add global styles to this file, and also import other style files */
 :root{
     --primary: #206a5d;
+    --primary-75: hsla(169, 54%, 27%, 0.75);
+    --primary-50: hsla(169, 54%, 27%, 0.5);
+    --primary-25: hsla(169, 54%, 27%, 0.25);
+    --primary-10: hsla(169, 54%, 27%, 0.10);
     --primary-v: #1d816f;
+
     --bright: #95d800;
     --muted: #bfdcae;
     --danger: #dd4a52;
+    
+    --disabled: #859794;
 
     --gray-text: #9e9e95;
     --gray-md: #c2c2b4;
     --gray-lt: #e4e4d6;
+
     --gray-bk: #f1f1e8;
+    --gray-bk-75: hsla(60, 22%, 93%, 0.75);
+    --gray-bk-50: hsla(60, 22%, 93%, 0.5);
+    --gray-bk-25: hsla(60, 22%, 93%, 0.25);
+    --gray-bk-10: hsla(60, 22%, 93%, 0.1);
 
     --spacer-xs: 6px;
     --spacer-sm: 8px;
@@ -38,6 +50,7 @@ h1, h2, h3, h4{
 
 h1{
     font-size: 2rem;
+    margin: var(--spacer) 0;
 }
 
 a{

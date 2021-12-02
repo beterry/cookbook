@@ -1,15 +1,11 @@
-ul{
+.recipe-grid{
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
-    list-style-type: none;
-    margin-block-start: 0;
-    margin-block-end: 0;
-    padding-inline-start: 0;
 }
 
 img{
-    height: 250px;
+    height: calc((100vw - (16px * 3))/2);
     width: 100%;
     object-fit: cover;
     border-radius: 4px;
@@ -22,4 +18,19 @@ h3{
     line-height: 1.35;
     font-weight: 700;
     font-size: 1rem;
+}
+
+.new-recipe{
+    width: 100%;
+    height: calc((100vw - (16px * 3))/2);
+    border: 2px dashed var(--primary);
+    border-radius: 4px;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover{
+        background-color: var(--gray-lt);
+    }
 }

@@ -1,19 +1,19 @@
 <form [formGroup]="recipeForm" (ngSubmit)="handleSubmit()">
-    <h1>Edit Recipe</h1>
+    <h1>{{formType | titlecase}} Recipe</h1>
     <div class="sticky-buttons">
-        <button class="btn-contained save" type="submit" [disabled]="!recipeForm.valid">Save</button>
-        <button class="btn-contained delete" type="button" (click)="handleDeleteRecipe()">Delete</button>
+        <button class="btn-contained save" type="submit" [disabled]="!recipeForm.valid || !recipeForm.dirty">Save</button>
+        <button class="btn-contained delete" type="button" (click)="handleDeleteRecipe()">{{formType === 'new' ? 'Cancel' : 'Delete'}}</button>
     </div>
 
-    <div class="form-group">
+    <div class="form-control">
         <label for="name">Name</label>
-        <input id="name" type="text" formControlName="name">
+        <input id="name" type="text" formControlName="name" placeholder="Recipe Name">
     </div>
 
-    <div class="form-group">
-        <label for="image">Image</label>
-        <input id="image" type="text" formControlName="imageURL">
-        <img class="img-preview" [src]="recipeForm.value.imageURL" alt=""/>
+    <div class="form-control">
+        <label for="image">Image URL</label>
+        <input id="image" type="text" formControlName="imageURL" placeholder="https://www.image.com/example">
+        <img *ngIf="recipeForm.value.imageURL" class="img-preview" [src]="recipeForm.value.imageURL" alt=""/>
     </div>
 
     <h2>Ingredients</h2>
@@ -32,7 +32,12 @@
                 </span>
             </button>
         </div>
-        <button class="btn-text" (click)="handleAddIngredient()" type="button">Add Ingredient</button>
+        <button class="btn-outline" (click)="handleAddIngredient()" type="button">
+            <span class="material-icons">
+                add
+            </span>
+            Ingredient
+        </button>
     </section>
 
     <h2>Preparation</h2>
@@ -58,11 +63,11 @@
                     </button>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-control">
                 <label>Name</label>
-                <input type="text" formControlName="name">
+                <input type="text" formControlName="name" placeholder="Step Name">
             </div>
-            <div class="form-group">
+            <div class="form-control">
                 <label>Description</label>
                 <textarea class="prep-description" rows="3" formControlName="description" placeholder="Explain how to complete this step"></textarea>
             </div>
@@ -79,18 +84,17 @@
                 <button class="btn-text" (click)="handleAddPrepIngredient(i)" type="button">Add Ingredient</button>
             </div>
         </div>
-        <div class="padding-sm"></div>
-        <button class="btn-contained" type="button" (click)="handleAddPrepStep()">
+        <button class="btn-outline" type="button" (click)="handleAddPrepStep()">
             <span class="material-icons">
                 add
             </span>
-            Add Prep Step
+            Prep Step
         </button>
     </section>
 
     <h2>Instructions</h2>
     <section formArrayName="instructions">
-        <div class="form-group instruction" *ngFor="let step of instructions.controls; let i = index" [formGroupName]="i">
+        <div class="instruction" *ngFor="let step of instructions.controls; let i = index" [formGroupName]="i">
             <div class="step-header">
                 <h3>Step {{i + 1}}</h3>
                 <div class="button-suite">
@@ -111,35 +115,34 @@
                     </button>
                 </div>
             </div>
-            <div>
-                <div class="form-group">
-                    <label>Text</label>
-                    <textarea rows="3" formControlName="text" placeholder="Explain how to complete this step"></textarea>
-                </div>
-                <div class="form-group">
-                    <label>Time</label>
-                    <input type="text" formControlName="time" placeholder="2-3 minutes">
-                </div>
-                <div class="ingredients-ctn" formArrayName="ingredients">
-                    <label *ngIf="getInstructionIngredients(i).length">Ingredients</label>
-                    <div class="form-group step-ingredient" *ngFor="let ingredient of getInstructionIngredients(i).controls; let j = index">
-                        <input type="text" [formControlName]="j" placeholder="Ingredient Name">
-                        <button class="btn-icon" type="button" (click)="handleDeleteInstructionIngredient(i, j)">
-                            <span class="material-icons">
-                                delete
-                            </span>
-                        </button>
-                    </div>
-                    <button class="btn-text" (click)="handleAddInstructionIngredient(i)" type="button">Add Ingredient</button>
-                </div>
+
+            <div class="form-control">
+                <label>Text</label>
+                <textarea rows="3" formControlName="text" placeholder="Explain how to complete this step"></textarea>
             </div>
+            <div class="form-control">
+                <label>Time</label>
+                <input type="text" formControlName="time" placeholder="2-3 minutes">
+            </div>
+            <div class="ingredients-ctn" formArrayName="ingredients">
+                <label *ngIf="getInstructionIngredients(i).length">Ingredients</label>
+                <div class="form-group step-ingredient" *ngFor="let ingredient of getInstructionIngredients(i).controls; let j = index">
+                    <input type="text" [formControlName]="j" placeholder="Ingredient Name">
+                    <button class="btn-icon" type="button" (click)="handleDeleteInstructionIngredient(i, j)">
+                        <span class="material-icons">
+                            delete
+                        </span>
+                    </button>
+                </div>
+                <button class="btn-text" (click)="handleAddInstructionIngredient(i)" type="button">Add Ingredient</button>
+            </div>
+
         </div>
-        <div class="padding-sm"></div>
-        <button class="btn-contained" type="button" (click)="handleAddInstruction()">
+        <button class="btn-outline" type="button" (click)="handleAddInstruction()">
             <span class="material-icons">
                 add
             </span>
-            Add Instruction
+            Instruction
         </button>
     </section>
 
