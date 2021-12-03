@@ -9,12 +9,10 @@ export const RECIPES: Recipe[] = [
             {
                 name: 'Chicken Breasts',
                 quantity: "1",
-                location: "Meat"
             },
             {
                 name: 'Chicken Broth',
                 quantity: "4 fl oz",
-                location: "Canned Vegetables"
             },
         ],
         prep: [
@@ -58,12 +56,10 @@ export const RECIPES: Recipe[] = [
             {
                 name: 'Creamed Corn',
                 quantity: "1 can",
-                location: "Canned Vegetables"
             },
             {
                 name: 'Whole Corn',
                 quantity: "1 can",
-                location: "Canned Vegetables"
             },
         ],
         prep: [

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { Ingredient, IngredientSection } from './recipe.model';
+import { Ingredient } from './recipe.model';
 
 @Injectable({
     providedIn: 'root',
@@ -10,15 +10,13 @@ export class ShoppingListService {
         {
             name: 'Test Ingredient 1',
             quantity: '1 cup',
-            location: 'Meat'
         },
         {
             name: 'Test Ingredient 2',
             quantity: '2 tbsp',
-            location: 'Fruit'
         }
     ];
-    shoppingListChanged = new Subject<{list: Ingredient[], sections: IngredientSection[]}>();
+    shoppingListChanged = new Subject<Ingredient[]>();
 
     constructor() {}
 
@@ -26,28 +24,10 @@ export class ShoppingListService {
         return [...this.shoppingList];
     }
 
-    getSections(): IngredientSection[]{
-        let formattedIngredients: IngredientSection[] = [];
-
-        this.shoppingList.forEach((ingredient) => {
-            const i = formattedIngredients.findIndex(section => section.title === ingredient.location);
-            if (i >= 0){
-                formattedIngredients[i].ingredients.push({...ingredient});
-            }else {
-                formattedIngredients.push({
-                    title: ingredient.location,
-                    ingredients: [{...ingredient}]
-                })
-            }
-        })
-
-        return formattedIngredients;
-    }
-
     addIngredients(newIngredients: Ingredient[]): void {
         this.shoppingList = this.shoppingList.concat(newIngredients);
 
         //-- emit new list to subscribed components
-        this.shoppingListChanged.next({list: this.getIngredients(), sections: this.getSections()});
+        this.shoppingListChanged.next(this.getIngredients());
     }
 }

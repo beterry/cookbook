@@ -10,7 +10,6 @@ export interface Recipe {
 export interface Ingredient {
     name: string;
     quantity: string;
-    location: string;
 }
 
 export interface Prep {
@@ -23,9 +22,4 @@ export interface Instruction {
     text: string;
     ingredients: string[];
     time: string;
-}
-
-export interface IngredientSection {
-    title: string;
-    ingredients: Ingredient[];
 }

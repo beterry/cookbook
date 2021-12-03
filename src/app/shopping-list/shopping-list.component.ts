@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Ingredient, IngredientSection } from '../recipe.model';
+import { Ingredient } from '../recipe.model';
 import { ShoppingListService } from '../shopping-list.service';
 
 @Component({
@@ -10,7 +10,6 @@ import { ShoppingListService } from '../shopping-list.service';
 })
 export class ShoppingListComponent implements OnInit, OnDestroy {
     ingredients: Ingredient[] = [];
-    sections: IngredientSection[] = [];
     private ingredientSubscription: Subscription;
 
     constructor(
@@ -19,12 +18,10 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.ingredients = this.shoppingListService.getIngredients();
-        this.sections = this.shoppingListService.getSections();
 
         this.ingredientSubscription = this.shoppingListService.shoppingListChanged
-            .subscribe(({list, sections}) => {
+            .subscribe((list) => {
                 this.ingredients = list;
-                this.sections = sections;
             })
     }
 
