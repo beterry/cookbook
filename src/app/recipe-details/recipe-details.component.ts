@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { RecipeService } from '../recipe.service';
+import { RecipeService } from '../services/recipe.service';
 import { Recipe } from '../recipe.model';
-import { ShoppingListService } from '../shopping-list.service';
+import { ShoppingListService } from '../services/shopping-list.service';
+import { tap } from 'rxjs/operators';
 
 @Component({
     selector: 'app-recipe-details',
@@ -24,10 +25,6 @@ export class RecipeDetailsComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.getRecipe();
-    }
-
-    getRecipe(): void{
         const id = this.route.snapshot.paramMap.get('id') || "000";
         this.recipeService
             .getRecipe(id)

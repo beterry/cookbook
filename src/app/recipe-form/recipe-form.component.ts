@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RecipeService } from '../recipe.service';
+import { RecipeService } from '../services/recipe.service';
 import { Location } from '@angular/common';
 import { Ingredient, Recipe, Prep, Instruction } from '../recipe.model';
 
@@ -92,7 +92,8 @@ export class RecipeFormComponent implements OnInit {
             this.recipeService.addRecipe(this.recipeForm.value);
             this.router.navigate(['/recipes']);
         }else{
-            this.recipeService.updateRecipe(this.id, this.recipeForm.value);
+            //-- indicate loading on the screen
+            this.recipeService.updateRecipe(this.id, this.recipeForm.value)
             this.router.navigate(['/recipe', 'details', this.id]);
         }
     }
@@ -229,14 +230,16 @@ export class RecipeFormComponent implements OnInit {
             prepSteps.forEach(step => {
                 //-- 1. create a child FormArray for the step's ingredients
                 let ingredientFormArray = this.builder.array([]);
-                step.ingredients.forEach(ingredient => {
-                    ingredientFormArray.push(this.builder.control(ingredient, Validators.required));
-                })
+                if (step.ingredients){
+                    step.ingredients.forEach(ingredient => {
+                        ingredientFormArray.push(this.builder.control(ingredient, Validators.required));
+                    })
+                }
 
                 //-- 2. assign remaining value to parent FormArray
                 prepFormArray.push(this.builder.group({
                     name: [step.name, Validators.required],
-                    description: step.description,
+                    description: step.description ? step.description : '',
                     ingredients: ingredientFormArray,
                 }))
             })
@@ -260,14 +263,16 @@ export class RecipeFormComponent implements OnInit {
             instructions.forEach(step => {
                 //-- 1. create a child FormArray for the step's ingredients
                 let ingredientFormArray = this.builder.array([]);
-                step.ingredients.forEach(ingredient => {
-                    ingredientFormArray.push(this.builder.control(ingredient, Validators.required));
-                })
+                if (step.ingredients){
+                    step.ingredients.forEach(ingredient => {
+                        ingredientFormArray.push(this.builder.control(ingredient, Validators.required));
+                    })
+                }
 
                 //-- 2. assign remaining value to parent FormArray
                 instructionsFormArray.push(this.builder.group({
                     text: [step.text, Validators.required],
-                    time: step.time,
+                    time: step.time ? step.time : '',
                     ingredients: ingredientFormArray,
                 }))
             })

@@ -1,4 +1,4 @@
-<form [formGroup]="recipeForm" (ngSubmit)="handleSubmit()">
+<form *ngIf="recipeForm" [formGroup]="recipeForm" (ngSubmit)="handleSubmit()">
     <h1>{{formType | titlecase}} Recipe</h1>
     <div class="sticky-buttons">
         <button class="btn-contained save" type="submit" [disabled]="!recipeForm.valid || !recipeForm.dirty">Save</button>
