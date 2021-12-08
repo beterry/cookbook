@@ -6,32 +6,8 @@ form{
     gap: 16px;
 }
 
-::placeholder{
-    color: var(--gray-md);
-}
-
 h1, h2, h3{
     margin: 0;
-}
-
-label, input{
-    display: block;
-}
-
-label{
-    font-size: .875rem;
-    font-weight: 700;
-    color: var(--gray-text);
-}
-
-input, textarea{
-    width: 100%;
-    border: none;
-    border-radius: 4px;
-    box-shadow: 0px 2px 4px rgba($color: #000000, $alpha: .1);
-    padding: 8px 16px;
-    resize: none;
-    line-height: 1.35;
 }
 
 .sticky-buttons{
@@ -63,63 +39,16 @@ input, textarea{
     }
 }
 
-.form-control{
-    display: grid;
-    grid-template-columns: 100%;
-    gap: 6px;
-}
-
 .ingredient{
     display: grid;
     grid-template-columns: 4fr 2fr auto;
     gap: 8px;
 }
 
-.prep, .instruction{
-    border-bottom: 1px solid var(--gray-lt);
-    padding: 8px 0;
-
-    display: grid;
-    grid-template-columns: 100%;
-    gap: 8px;
-    
-    &:first-of-type{
-        border-top: 1px solid var(--gray-lt);
-    }
-
-    &:last-of-type{
-        margin-bottom: 8px;
-    }
-}
-
-.step-ingredient{
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 8px;
-}
-
-.step-header{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    .button-suite{
-        display: grid;
-        grid-template-columns: repeat(3, auto);
-        gap: 8px;
-    }
-}
-
 .img-preview{
     height: 200px;
     box-shadow: 0px 2px 4px rgba($color: #000000, $alpha: .1);
     border-radius: 4px;
-}
-
-.instruction-number{
-    font-size: 2.5rem;
-    color: var(--gray-md);
-    margin: 0;
 }
 
 .header-spacer{

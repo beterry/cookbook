@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RecipeService } from '../services/recipe.service';
 import { Location } from '@angular/common';
 import { Ingredient, Recipe, Prep, Instruction } from '../recipe.model';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Component({
     selector: 'app-recipe-form',
@@ -28,12 +30,12 @@ export class RecipeFormComponent implements OnInit {
         return this.recipeForm.get('instructions') as FormArray;  
     }
 
-    getPrepIngredients(index: number): FormArray{
-        return this.prep.at(index).get('ingredients') as FormArray;
+    getPrepStep(index: number): FormGroup{
+        return this.prep.at(index) as FormGroup;
     }
 
-    getInstructionIngredients(index: number): FormArray{
-        return this.instructions.at(index).get('ingredients') as FormArray;
+    getInstructionStep(index: number): FormGroup{
+        return this.instructions.at(index) as FormGroup;
     }
 
     constructor(
@@ -50,18 +52,17 @@ export class RecipeFormComponent implements OnInit {
         if (this.formType === 'new'){
             this.initForm();
         }else {
-            this.getRecipe();
+            this.getRecipe()
+                .pipe(
+                    tap(recipe => this.recipe = recipe)
+                )
+                .subscribe(recipe => this.initForm(recipe))
         }
     }
 
-    getRecipe(): void{
+    getRecipe(): Observable<Recipe>{
         this.id = this.route.snapshot.paramMap.get('id') || "000";
-        this.recipeService
-            .getRecipe(this.id)
-            .subscribe((recipe) => {
-                this.recipe = recipe;
-                this.initForm(recipe);
-            });
+        return this.recipeService.getRecipe(this.id);
     }
 
     initForm(recipe?: Recipe): void {
@@ -154,14 +155,6 @@ export class RecipeFormComponent implements OnInit {
         this.prep.insert(index + 1, movingStep);
     }
 
-    handleAddPrepIngredient(prepIndex: number){
-        this.getPrepIngredients(prepIndex).push(this.builder.control('', Validators.required));
-    }
-
-    handleDeletePrepIngredient(prepIndex: number, ingredientIndex: number){
-        this.getPrepIngredients(prepIndex).removeAt(ingredientIndex);
-    }
-
     handleAddInstruction(){
         this.instructions.push(this.getBlankInstruction());
     }
@@ -196,14 +189,6 @@ export class RecipeFormComponent implements OnInit {
         //-- remove and then re-add
         this.instructions.removeAt(index);
         this.instructions.insert(index + 1, movingStep);
-    }
-
-    handleAddInstructionIngredient(stepIndex: number){
-        this.getInstructionIngredients(stepIndex).push(new FormControl('', Validators.required));
-    }
-
-    handleDeleteInstructionIngredient(stepIndex: number, ingredientIndex: number){
-        this.getInstructionIngredients(stepIndex).removeAt(ingredientIndex);
     }
 
     composeIngredientFormArray(ingredients: Ingredient[]):FormArray {

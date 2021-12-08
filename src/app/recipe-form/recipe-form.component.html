@@ -1,7 +1,7 @@
 <form *ngIf="recipeForm" [formGroup]="recipeForm" (ngSubmit)="handleSubmit()">
     <h1>{{formType | titlecase}} Recipe</h1>
     <div class="sticky-buttons">
-        <button class="btn-contained save" type="submit" [disabled]="!recipeForm.valid || !recipeForm.dirty">Save</button>
+        <button class="btn-contained save" type="submit" [disabled]="!recipeForm.valid">Save</button>
         <button class="btn-contained delete" type="button" (click)="handleDeleteRecipe()">{{formType === 'new' ? 'Cancel' : 'Delete'}}</button>
     </div>
 
@@ -42,48 +42,14 @@
 
     <h2>Preparation</h2>
     <section formArrayName="prep">
-        <div class="form-group prep" *ngFor="let step of prep.controls; let i = index" [formGroupName]="i">
-            <div class="step-header">
-                <h3>{{recipeForm.value.prep[i].name}} Prep</h3>
-                <div class="button-suite">
-                    <button class="btn-icon" type="button" (click)="handleDeletePrepStep(i)">
-                        <span class="material-icons">
-                            delete
-                        </span>
-                    </button>
-                    <button class="btn-icon" type="button" (click)="handlePrepStepUp(i)">
-                        <span class="material-icons">
-                            arrow_upward
-                        </span>
-                    </button>
-                    <button class="btn-icon" type="button" (click)="handlePrepStepDown(i)">
-                        <span class="material-icons">
-                            arrow_downward
-                        </span>
-                    </button>
-                </div>
-            </div>
-            <div class="form-control">
-                <label>Name</label>
-                <input type="text" formControlName="name" placeholder="Step Name">
-            </div>
-            <div class="form-control">
-                <label>Description</label>
-                <textarea class="prep-description" rows="3" formControlName="description" placeholder="Explain how to complete this step"></textarea>
-            </div>
-            <div class="ingredients-ctn" formArrayName="ingredients">
-                <label *ngIf="getPrepIngredients(i).length">Ingredients</label>
-                <div class="form-group step-ingredient" *ngFor="let ingredient of getPrepIngredients(i).controls; let j = index">
-                    <input type="text" [formControlName]="j" placeholder="Ingredient Name">
-                    <button class="btn-icon" type="button" (click)="handleDeletePrepIngredient(i, j)">
-                        <span class="material-icons">
-                            delete
-                        </span>
-                    </button>
-                </div>
-                <button class="btn-text" (click)="handleAddPrepIngredient(i)" type="button">Add Ingredient</button>
-            </div>
-        </div>
+        <app-prep-step 
+            *ngFor="let step of prep.controls; let i = index"
+            [group]="getPrepStep(i)"
+            [stepIndex]="i"
+            (delete)="handleDeletePrepStep(i)"
+            (moveUp)="handlePrepStepUp(i)"
+            (moveDown)="handlePrepStepDown(i)"
+        ></app-prep-step>
         <button class="btn-outline" type="button" (click)="handleAddPrepStep()">
             <span class="material-icons">
                 add
@@ -94,50 +60,15 @@
 
     <h2>Instructions</h2>
     <section formArrayName="instructions">
-        <div class="instruction" *ngFor="let step of instructions.controls; let i = index" [formGroupName]="i">
-            <div class="step-header">
-                <h3>Step {{i + 1}}</h3>
-                <div class="button-suite">
-                    <button class="btn-icon" type="button" (click)="handleDeleteInstruction(i)">
-                        <span class="material-icons">
-                            delete
-                        </span>
-                    </button>
-                    <button class="btn-icon" type="button" (click)="handleInstructionUp(i)">
-                        <span class="material-icons">
-                            arrow_upward
-                        </span>
-                    </button>
-                    <button class="btn-icon" type="button" (click)="handleInstructionDown(i)">
-                        <span class="material-icons">
-                            arrow_downward
-                        </span>
-                    </button>
-                </div>
-            </div>
-
-            <div class="form-control">
-                <label>Text</label>
-                <textarea rows="3" formControlName="text" placeholder="Explain how to complete this step"></textarea>
-            </div>
-            <div class="form-control">
-                <label>Time</label>
-                <input type="text" formControlName="time" placeholder="2-3 minutes">
-            </div>
-            <div class="ingredients-ctn" formArrayName="ingredients">
-                <label *ngIf="getInstructionIngredients(i).length">Ingredients</label>
-                <div class="form-group step-ingredient" *ngFor="let ingredient of getInstructionIngredients(i).controls; let j = index">
-                    <input type="text" [formControlName]="j" placeholder="Ingredient Name">
-                    <button class="btn-icon" type="button" (click)="handleDeleteInstructionIngredient(i, j)">
-                        <span class="material-icons">
-                            delete
-                        </span>
-                    </button>
-                </div>
-                <button class="btn-text" (click)="handleAddInstructionIngredient(i)" type="button">Add Ingredient</button>
-            </div>
-
-        </div>
+        <app-instruction-step 
+            *ngFor="let step of instructions.controls; let i = index"
+            [group]="getInstructionStep(i)"
+            [stepIndex]="i"
+            (delete)="handleDeleteInstruction(i)"
+            (moveUp)="handleInstructionUp(i)"
+            (moveDown)="handleInstructionDown(i)"
+        ></app-instruction-step>
+        
         <button class="btn-outline" type="button" (click)="handleAddInstruction()">
             <span class="material-icons">
                 add

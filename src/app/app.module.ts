@@ -14,6 +14,8 @@ import { InstructionsListComponent } from './instructions-list/instructions-list
 import { ShoppingListItemComponent } from './shopping-list/shopping-list-item/shopping-list-item.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RecipeFormComponent } from './recipe-form/recipe-form.component';
+import { PrepStepComponent } from './recipe-form/prep-step/prep-step.component';
+import { InstructionStepComponent } from './recipe-form/instruction-step/instruction-step.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { RecipeFormComponent } from './recipe-form/recipe-form.component';
     PrepListComponent,
     InstructionsListComponent,
     ShoppingListItemComponent,
-    RecipeFormComponent
+    RecipeFormComponent,
+    PrepStepComponent,
+    InstructionStepComponent
   ],
   imports: [
     BrowserModule,
