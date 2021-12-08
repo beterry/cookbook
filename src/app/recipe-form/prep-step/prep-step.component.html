@@ -1,7 +1,12 @@
-<div class="form-group prep" [formGroup]="group">
+<div class="prep" [formGroup]="group">
+    <!-- Header/preview -->
     <div class="step-header">
         <h3>{{group.value.name}} Prep</h3>
         <div class="button-suite">
+            <button class="btn-icon" type="button" (click)="toggleEditStep()">
+                <span *ngIf="!editStep" class="material-icons">expand_more</span>
+                <span *ngIf="editStep" class="material-icons">expand_less</span>
+            </button>
             <button class="btn-icon" type="button" (click)="handleDeletePrepStep()">
                 <span class="material-icons">
                     delete
@@ -19,24 +24,27 @@
             </button>
         </div>
     </div>
-    <div class="form-control">
-        <label>Name</label>
-        <input type="text" formControlName="name" placeholder="Step Name">
-    </div>
-    <div class="form-control">
-        <label>Description</label>
-        <textarea class="prep-description" rows="3" formControlName="description" placeholder="Explain how to complete this step"></textarea>
-    </div>
-    <div class="ingredients-ctn" formArrayName="ingredients">
-        <label *ngIf="ingredients.length">Ingredients</label>
-        <div class="form-group step-ingredient" *ngFor="let ingredient of ingredients.controls; let j = index">
-            <input type="text" [formControlName]="j" placeholder="Ingredient Name">
-            <button class="btn-icon" type="button" (click)="handleDeleteIngredient(j)">
-                <span class="material-icons">
-                    delete
-                </span>
-            </button>
+    <!-- Edit step -->
+    <div class="form-group" *ngIf="editStep">
+        <div class="form-control">
+            <label>Name</label>
+            <input type="text" formControlName="name" placeholder="Step Name">
         </div>
-        <button class="btn-text" (click)="handleAddIngredient()" type="button">Add Ingredient</button>
+        <div class="form-control">
+            <label>Description</label>
+            <textarea class="prep-description" rows="3" formControlName="description" placeholder="Explain how to complete this step"></textarea>
+        </div>
+        <div class="ingredients-ctn" formArrayName="ingredients">
+            <label *ngIf="ingredients.length">Ingredients</label>
+            <div class="form-group step-ingredient" *ngFor="let ingredient of ingredients.controls; let j = index">
+                <input type="text" [formControlName]="j" placeholder="Ingredient Name">
+                <button class="btn-icon" type="button" (click)="handleDeleteIngredient(j)">
+                    <span class="material-icons">
+                        delete
+                    </span>
+                </button>
+            </div>
+            <button class="btn-text" (click)="handleAddIngredient()" type="button">Add Ingredient</button>
+        </div>
     </div>
 </div>

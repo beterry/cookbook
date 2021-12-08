@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RecipeService } from '../services/recipe.service';
@@ -6,13 +6,14 @@ import { Location } from '@angular/common';
 import { Ingredient, Recipe, Prep, Instruction } from '../recipe.model';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { RecipeFormService } from './recipe-form.service';
 
 @Component({
     selector: 'app-recipe-form',
     templateUrl: './recipe-form.component.html',
     styleUrls: ['./recipe-form.component.scss'],
 })
-export class RecipeFormComponent implements OnInit {
+export class RecipeFormComponent implements OnInit, OnDestroy {
     formType: string;
     id: string;
     recipe: Recipe;
@@ -42,6 +43,7 @@ export class RecipeFormComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private recipeService: RecipeService,
+        private formService: RecipeFormService,
         private location: Location,
         private builder: FormBuilder,
     ) {}
@@ -58,6 +60,14 @@ export class RecipeFormComponent implements OnInit {
                 )
                 .subscribe(recipe => this.initForm(recipe))
         }
+    }
+
+    ngOnDestroy(): void {
+        //-- reset the form service
+
+        //-- makes sure if you navigate back to the same recipe, no steps are open
+        this.formService.editPrepStep.next(-1);
+        this.formService.editInstructionStep.next(-1);
     }
 
     getRecipe(): Observable<Recipe>{
@@ -121,6 +131,10 @@ export class RecipeFormComponent implements OnInit {
 
     handleAddPrepStep(){
         this.prep.push(this.getBlankPrepStep());
+
+        //-- emits the index of the new step
+        //-- this is caught in the component and enables edit mode
+        this.formService.editPrepStep.next(this.prep.length - 1);
     }
 
     handleDeletePrepStep(index: number){
@@ -157,6 +171,10 @@ export class RecipeFormComponent implements OnInit {
 
     handleAddInstruction(){
         this.instructions.push(this.getBlankInstruction());
+
+        //-- emits the index of the new step
+        //-- this is caught in the component and enables edit mode
+        this.formService.editInstructionStep.next(this.instructions.length - 1);
     }
 
     handleDeleteInstruction(index: number){

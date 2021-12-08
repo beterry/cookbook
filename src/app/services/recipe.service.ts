@@ -110,7 +110,7 @@ export class RecipeService {
 
         this.recipes.splice(index, 1);
 
-        this.dbDeleteRecipe(id);
+        // this.dbDeleteRecipe(id);
     }
 
     dbDeleteRecipe(id: string) {

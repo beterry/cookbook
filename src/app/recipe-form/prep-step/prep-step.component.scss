@@ -8,14 +8,6 @@ h1, h2, h3{
     display: grid;
     grid-template-columns: 100%;
     gap: 8px;
-    
-    &:first-of-type{
-        border-top: 1px solid var(--gray-lt);
-    }
-
-    &:last-of-type{
-        margin-bottom: 8px;
-    }
 }
 
 .step-ingredient{
@@ -31,7 +23,7 @@ h1, h2, h3{
 
     .button-suite{
         display: grid;
-        grid-template-columns: repeat(3, auto);
+        grid-template-columns: repeat(4, auto);
         gap: 8px;
     }
 }
