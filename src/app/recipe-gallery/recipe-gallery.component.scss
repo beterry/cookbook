@@ -34,3 +34,11 @@ h3{
         background-color: var(--gray-lt);
     }
 }
+
+
+.loading{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

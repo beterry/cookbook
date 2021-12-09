@@ -56,3 +56,10 @@ h1, h2, h3{
     grid-template-columns: 100%;
     gap: 2px;
 }
+
+.loading{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

@@ -41,3 +41,7 @@
         <app-instructions-list *ngIf="tab === 'instructions'" [instructions]="recipe.instructions"></app-instructions-list>
     </section>
 </div>
+
+<div class="loading" *ngIf="!recipe">
+    Loading...
+</div>
