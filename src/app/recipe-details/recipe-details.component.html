@@ -1,11 +1,11 @@
 <div *ngIf="recipe">
     <div class="image-ctn full-width-phone">
         <img [src]="recipe.imageURL" alt="" />
-        <div class="action-ctn">
-            <button class="toggle-dropdown" (click)="toggleActionDropdown()">
+        <div class="action-ctn" appDropdown>
+            <button class="menu-button">
                 <img src="assets/icons/icon-ellipsis.svg" alt="menu">
             </button>
-            <div class="action-dropdown" *ngIf="showActions">
+            <div class="action-dropdown">
                 <button class="action-btn" (click)="handleAddToList()">Add to List</button>
                 <a class="action-btn" [routerLink]="['/recipe','edit', recipe.id]">Edit</a>
             </div>

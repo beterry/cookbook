@@ -29,19 +29,34 @@ img{
     margin-bottom: 16px;
 }
 
-/* ACTION BUTTONS */
-
 .image-ctn{
     position: relative;
 }
 
+/* ACTION BUTTONS */
 .action-ctn{
     position: absolute;
     top: 16px;
     right: 16px;
+
+    .action-dropdown{
+        display: none;
+        position: absolute;
+        top: 25px;
+        right: 0;
+        background-color: white;
+        width: 175px;
+        border-radius: 4px;
+    }
+
+    &.open{
+        .action-dropdown {
+            display: block;
+        }
+    }
 }
 
-.toggle-dropdown{
+.menu-button{
     width: 40px;
     height: 40px;
     background-color: var(--primary);
@@ -50,20 +65,12 @@ img{
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
-.toggle-dropdown img{
+.menu-button img{
     width: 24px;
     height: 24px;
-}
-
-.action-dropdown{
-    position: absolute;
-    top: 25px;
-    right: 0;
-    background-color: white;
-    width: 175px;
-    border-radius: 4px;
 }
 
 .action-btn{
@@ -81,11 +88,11 @@ img{
     background-color: var(--gray-lt);
 }
 
-.action-btn:first-of-type{
+.action-btn:first-child{
     border-radius: 4px 4px 0 0;
 }
 
-.action-btn:last-of-type{
+.action-btn:last-child{
     border-radius: 0 0 4px 4px;
 }
 

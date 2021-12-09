@@ -16,6 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RecipeFormComponent } from './recipe-form/recipe-form.component';
 import { PrepStepComponent } from './recipe-form/prep-step/prep-step.component';
 import { InstructionStepComponent } from './recipe-form/instruction-step/instruction-step.component';
+import { DropdownDirective } from './directives/dropdown.directive';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { InstructionStepComponent } from './recipe-form/instruction-step/instruc
     ShoppingListItemComponent,
     RecipeFormComponent,
     PrepStepComponent,
-    InstructionStepComponent
+    InstructionStepComponent,
+    DropdownDirective
   ],
   imports: [
     BrowserModule,
