@@ -2,6 +2,7 @@ h1, h2, h3{
     margin: 0;
 }
 .prep{
+    border-top: 1px solid var(--gray-lt);
     border-bottom: 1px solid var(--gray-lt);
     padding: 8px 0;
 
@@ -23,8 +24,18 @@ h1, h2, h3{
 
     .button-suite{
         display: grid;
-        grid-template-columns: repeat(4, auto);
+        align-items: center;
         gap: 8px;
+        
+        &.left{
+            grid-template-columns: repeat(2, auto);
+            
+        }
+        
+        &.right{
+            grid-template-columns: repeat(3, auto);
+
+        }
     }
 }
 
@@ -34,5 +45,11 @@ h1, h2, h3{
 
     label{
         margin: 0;
+    }
+}
+
+.prep.closed.ng-invalid{
+    h3{
+        color: var(--danger);
     }
 }

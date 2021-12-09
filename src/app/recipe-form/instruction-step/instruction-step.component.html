@@ -1,22 +1,33 @@
-<div class="instruction" [formGroup]="group">
+<div class="instruction" [class.closed]="!editStep" [formGroup]="group">
+
+    <!-- HEADER -->
     <div class="step-header">
-        <h3>Step {{stepIndex + 1}}</h3>
-        <div class="button-suite">
+
+        <!-- LEFT -->
+        <div class="button-suite left">
             <button class="btn-icon" type="button" (click)="toggleEditStep()">
                 <span *ngIf="!editStep" class="material-icons">expand_more</span>
                 <span *ngIf="editStep" class="material-icons">expand_less</span>
             </button>
-            <button class="btn-icon" type="button" (click)="handleDeleteInstruction()">
+            <div>
+                <h3>Step {{stepIndex + 1}}</h3>
+                <p *ngIf="!editStep" class="step-preview">{{group.value.text}}</p>
+            </div>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="button-suite right">
+            <button *ngIf="editStep" class="btn-icon danger" type="button" (click)="handleDeleteInstruction()">
                 <span class="material-icons">
                     delete
                 </span>
             </button>
-            <button class="btn-icon" type="button" (click)="handleInstructionUp()">
+            <button *ngIf="!editStep" class="btn-icon" type="button" (click)="handleInstructionUp()">
                 <span class="material-icons">
                     arrow_upward
                 </span>
             </button>
-            <button class="btn-icon" type="button" (click)="handleInstructionDown()">
+            <button *ngIf="!editStep" class="btn-icon" type="button" (click)="handleInstructionDown()">
                 <span class="material-icons">
                     arrow_downward
                 </span>
@@ -37,9 +48,9 @@
             <label *ngIf="ingredients.length">Ingredients</label>
             <div class="form-group step-ingredient" *ngFor="let ingredient of ingredients.controls; let j = index">
                 <input type="text" [formControlName]="j" placeholder="Ingredient Name">
-                <button class="btn-icon" type="button" (click)="handleDeleteIngredient(j)">
+                <button class="btn-icon danger" type="button" (click)="handleDeleteIngredient(j)">
                     <span class="material-icons">
-                        delete
+                        clear
                     </span>
                 </button>
             </div>

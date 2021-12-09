@@ -53,9 +53,17 @@
             background-color: var(--primary);
         }
     }
+
+    &.danger{
+        background-color: var(--danger);
+    }
 }
 
 .btn-icon{
     @include btn;
     width: 40px;
+
+    &.danger{
+        color: var(--danger);
+    }
 }

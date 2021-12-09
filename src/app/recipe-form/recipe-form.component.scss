@@ -1,5 +1,5 @@
 form{
-    padding: 16px 0 calc(16px + 16px + 40px) 0; 
+    padding: 16px 0; 
     
     display: grid;
     grid-template-columns: 100%;
@@ -10,33 +10,24 @@ h1, h2, h3{
     margin: 0;
 }
 
-.sticky-buttons{
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: var(--spacer);
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 8px;
-    background: linear-gradient(transparent, var(--gray-bk) 16px);
+.form-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 
-    .save, .delete{
-       box-shadow: 0 3px 10px rgba($color: #000000, $alpha: .35);
-    }
+.header-buttons{
+    display: flex;
 
     .delete{
-        background-color: var(--danger);
+        color: var(--danger);
     }
+
 }
 
 .ingredients-ctn{
     display: grid;
     gap: 8px;
-
-    label{
-        margin: 0;
-    }
 }
 
 .ingredient{
@@ -53,4 +44,15 @@ h1, h2, h3{
 
 .header-spacer{
     width: 40px;
+}
+
+.prep-section, .instruction-section{
+    border-top: 1px solid var(--gray-lt);
+    border-bottom: 1px solid var(--gray-lt);
+
+    padding: 2px 0;
+
+    display: grid;
+    grid-template-columns: 100%;
+    gap: 2px;
 }

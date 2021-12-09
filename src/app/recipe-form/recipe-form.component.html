@@ -1,21 +1,36 @@
 <form *ngIf="recipeForm" [formGroup]="recipeForm" (ngSubmit)="handleSubmit()">
-    <h1>{{formType | titlecase}} Recipe</h1>
-    <div class="sticky-buttons">
-        <button class="btn-contained save" type="submit" [disabled]="!recipeForm.valid || recipeForm.pristine">Save</button>
-        <button class="btn-contained delete" type="button" (click)="handleDeleteRecipe()">{{formType === 'new' ? 'Cancel' : 'Delete'}}</button>
+
+    <!-- HEADER -->
+    <div class="form-header">
+        <h1>{{formType | titlecase}} Recipe</h1>
+        <div class="header-buttons">
+            <button class="btn-icon save" type="submit" [disabled]="!recipeForm.valid">
+                <span class="material-icons">
+                    save
+                </span>
+            </button>
+            <button class="btn-icon delete" type="button" (click)="handleDeleteRecipe()">
+                <span class="material-icons">
+                    delete
+                </span>
+            </button>
+        </div>
     </div>
 
+    <!-- NAME -->
     <div class="form-control">
         <label for="name">Name</label>
         <input id="name" type="text" formControlName="name" placeholder="Recipe Name">
     </div>
 
+    <!-- IMAGE -->
     <div class="form-control">
         <label for="image">Image URL</label>
         <input id="image" type="text" formControlName="imageURL" placeholder="https://www.image.com/example">
         <img *ngIf="recipeForm.value.imageURL" class="img-preview" [src]="recipeForm.value.imageURL" alt=""/>
     </div>
 
+    <!-- INGREDIENTS -->
     <h2>Ingredients</h2>
     <section class="ingredients-ctn" formArrayName="ingredients">
         <div class="form-group ingredient" *ngIf="ingredients.length">
@@ -26,13 +41,13 @@
         <div class="form-group ingredient" *ngFor="let ingredient of ingredients.controls; let i = index" [formGroupName]="i">
             <input type="text" formControlName="name" placeholder="Ingredient Name">
             <input type="text" formControlName="quantity" placeholder="Amount">
-            <button class="btn-icon" type="button" (click)="handleDeleteIngredient(i)">
+            <button class="btn-icon danger" type="button" (click)="handleDeleteIngredient(i)">
                 <span class="material-icons">
-                    delete
+                    clear
                 </span>
             </button>
         </div>
-        <button class="btn-outline" (click)="handleAddIngredient()" type="button">
+        <button class="btn-contained" (click)="handleAddIngredient()" type="button">
             <span class="material-icons">
                 add
             </span>
@@ -40,8 +55,9 @@
         </button>
     </section>
 
+    <!-- PREPARATION -->
     <h2>Preparation</h2>
-    <section formArrayName="prep">
+    <section class="prep-section" formArrayName="prep">
         <app-prep-step 
             *ngFor="let step of prep.controls; let i = index"
             [group]="getPrepStep(i)"
@@ -50,16 +66,17 @@
             (moveUp)="handlePrepStepUp(i)"
             (moveDown)="handlePrepStepDown(i)"
         ></app-prep-step>
-        <button class="btn-outline" type="button" (click)="handleAddPrepStep()">
-            <span class="material-icons">
-                add
-            </span>
-            Prep Step
-        </button>
     </section>
+    <button class="btn-contained" type="button" (click)="handleAddPrepStep()">
+        <span class="material-icons">
+            add
+        </span>
+        Prep Step
+    </button>
 
+    <!-- INSTRUCTIONS -->
     <h2>Instructions</h2>
-    <section formArrayName="instructions">
+    <section class="instruction-section" formArrayName="instructions">
         <app-instruction-step 
             *ngFor="let step of instructions.controls; let i = index"
             [group]="getInstructionStep(i)"
@@ -68,13 +85,12 @@
             (moveUp)="handleInstructionUp(i)"
             (moveDown)="handleInstructionDown(i)"
         ></app-instruction-step>
-        
-        <button class="btn-outline" type="button" (click)="handleAddInstruction()">
-            <span class="material-icons">
-                add
-            </span>
-            Instruction
-        </button>
     </section>
+    <button class="btn-contained" type="button" (click)="handleAddInstruction()">
+        <span class="material-icons">
+            add
+        </span>
+        Instruction
+    </button>
 
 </form>

@@ -1,30 +1,38 @@
-<div class="prep" [formGroup]="group">
-    <!-- Header/preview -->
+<div class="prep" [class.closed]="!editStep" [formGroup]="group">
+
+    <!-- HEADER -->
     <div class="step-header">
-        <h3>{{group.value.name}} Prep</h3>
-        <div class="button-suite">
+
+        <!-- LEFT -->
+        <div class="button-suite left">
             <button class="btn-icon" type="button" (click)="toggleEditStep()">
                 <span *ngIf="!editStep" class="material-icons">expand_more</span>
                 <span *ngIf="editStep" class="material-icons">expand_less</span>
             </button>
-            <button class="btn-icon" type="button" (click)="handleDeletePrepStep()">
+            <h3>{{group.value.name}} Prep</h3>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="button-suite right">
+            <button *ngIf="editStep" class="btn-icon danger" type="button" (click)="handleDeletePrepStep()">
                 <span class="material-icons">
                     delete
                 </span>
             </button>
-            <button class="btn-icon" type="button" (click)="handlePrepStepUp()">
+            <button *ngIf="!editStep" class="btn-icon" type="button" (click)="handlePrepStepUp()">
                 <span class="material-icons">
                     arrow_upward
                 </span>
             </button>
-            <button class="btn-icon" type="button" (click)="handlePrepStepDown()">
+            <button *ngIf="!editStep" class="btn-icon" type="button" (click)="handlePrepStepDown()">
                 <span class="material-icons">
                     arrow_downward
                 </span>
             </button>
         </div>
     </div>
-    <!-- Edit step -->
+
+    <!-- EDIT -->
     <div class="form-group" *ngIf="editStep">
         <div class="form-control">
             <label>Name</label>
@@ -38,9 +46,9 @@
             <label *ngIf="ingredients.length">Ingredients</label>
             <div class="form-group step-ingredient" *ngFor="let ingredient of ingredients.controls; let j = index">
                 <input type="text" [formControlName]="j" placeholder="Ingredient Name">
-                <button class="btn-icon" type="button" (click)="handleDeleteIngredient(j)">
+                <button class="btn-icon danger" type="button" (click)="handleDeleteIngredient(j)">
                     <span class="material-icons">
-                        delete
+                        clear
                     </span>
                 </button>
             </div>
