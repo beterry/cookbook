@@ -1,9 +1,9 @@
 <ol>
-    <li *ngFor="let portion of prepList" class="portion-block">
-        <h3>{{portion.name}}</h3>
-        <p *ngIf="portion.description">{{portion.description}}</p>
-        <ul *ngIf="portion.ingredients" class="ingredient-list">
-            <li *ngFor="let ingredient of portion.ingredients" class="ingredient">
+    <li *ngFor="let step of prepList" class="step">
+        <h3>{{step.name}}</h3>
+        <p *ngIf="step.description">{{step.description}}</p>
+        <ul *ngIf="step.ingredients" class="ingredient-ctn">
+            <li *ngFor="let ingredient of step.ingredients" class="ingredient">
                 {{ingredient}}
             </li>
         </ul>

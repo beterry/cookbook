@@ -1,7 +1,7 @@
 <form *ngIf="recipeForm" [formGroup]="recipeForm" (ngSubmit)="handleSubmit()">
     <h1>{{formType | titlecase}} Recipe</h1>
     <div class="sticky-buttons">
-        <button class="btn-contained save" type="submit" [disabled]="!recipeForm.valid">Save</button>
+        <button class="btn-contained save" type="submit" [disabled]="!recipeForm.valid || recipeForm.pristine">Save</button>
         <button class="btn-contained delete" type="button" (click)="handleDeleteRecipe()">{{formType === 'new' ? 'Cancel' : 'Delete'}}</button>
     </div>
 

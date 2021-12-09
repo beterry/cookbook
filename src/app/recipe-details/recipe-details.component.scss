@@ -12,9 +12,14 @@ img{
     background-color: transparent;
     border-radius: 4px 4px 0 0;
     border: 1px solid var(--gray-lt);
-    padding: 8px;
+    padding: 12px 8px;
     width: calc(100% / 3);
     color: var(--primary);
+    cursor: pointer;
+
+    &:hover{
+        background-color: var(--gray-lt);
+    }
 }
 
 .tab.selected{
@@ -22,6 +27,11 @@ img{
     color: white;
     border: none;
     border-bottom: 1px solid var(--primary);
+    cursor: default;
+
+    &:hover{
+        background-color: var(--primary);
+    }
 }
 
 .tab-content{

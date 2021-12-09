@@ -17,15 +17,38 @@
 
 .content{
     flex-grow: 1;
+
+    // center single line to the number
+    padding-top: 4px;
+
+    display: grid;
+    grid-template-columns: 100%;
+    gap: 16px;
 }
 
 .text{
-    margin: 4px 0 8px 0;
+    margin: 0;
+    line-height: 1.35;
+}
+
+.ingredient-ctn{
+    display: grid;
+    grid-template-columns: 100%;
+    gap: 6px;
 }
 
 .ingredient{
     font-size: .875rem;
     color: var(--gray-text);
     font-weight: 700;
-    margin: 4px 0;
+}
+
+.time-ctn{
+    display: flex;
+    align-items: center;
+    color: var(--bright);
+
+    p{
+        margin: 0 0 0 4px;
+    }
 }
