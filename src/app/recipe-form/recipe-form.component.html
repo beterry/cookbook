@@ -1,4 +1,4 @@
-<div *ngIf="recipe">
+<div *ngIf="recipeForm">
     <form *ngIf="recipeForm" [formGroup]="recipeForm" (ngSubmit)="handleSubmit()">
     
         <!-- HEADER -->
@@ -97,6 +97,6 @@
     </form>
 </div>
 
-<div class="loading" *ngIf="!recipe">
+<div class="loading" *ngIf="!recipeForm">
     Loading...
 </div>

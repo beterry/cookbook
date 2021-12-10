@@ -6,7 +6,6 @@
     align-items: center;
     justify-content: center;
     height: 40px;
-    width: 100%;
     color: var(--primary);
     font-weight: 800;
     text-transform: uppercase;
@@ -23,6 +22,10 @@
     &:disabled{
         opacity: .4;
         cursor: auto;
+    }
+
+    &.fill{
+        width: 100%;
     }
 }
 
@@ -56,6 +59,10 @@
 
     &.danger{
         background-color: var(--danger);
+    }
+
+    &.success{
+        background-color: var(--bright);
     }
 }
 

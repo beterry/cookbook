@@ -1,0 +1,9 @@
+<div [class.hide]="!isOpen" (click)="closeDialog()" class="overlay"></div>
+
+<div [class.hide]="!isOpen" class="modal">
+    <h2>{{title}}</h2>
+    <div class="button-suite">
+        <button class="btn-text" (click)="closeDialog()">No</button>
+        <button class="btn-text" (click)="confirmDialog()">Yes</button>
+    </div>
+</div>

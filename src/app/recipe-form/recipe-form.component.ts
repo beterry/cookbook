@@ -4,9 +4,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RecipeService } from '../services/recipe.service';
 import { Location } from '@angular/common';
 import { Ingredient, Recipe, Prep, Instruction } from '../recipe.model';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { RecipeFormService } from './recipe-form.service';
+import { DialogService } from '../services/dialog.service';
 
 @Component({
     selector: 'app-recipe-form',
@@ -18,6 +19,7 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
     id: string;
     recipe: Recipe;
     recipeForm: FormGroup;
+    dialogDeleteSubscription: Subscription;
 
     get ingredients(){
         return this.recipeForm.get('ingredients') as FormArray;  
@@ -46,6 +48,7 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
         private formService: RecipeFormService,
         private location: Location,
         private builder: FormBuilder,
+        private dialogService: DialogService,
     ) {}
 
     ngOnInit(): void {
@@ -60,6 +63,13 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
                 )
                 .subscribe(recipe => this.initForm(recipe))
         }
+
+        this.dialogDeleteSubscription = this.dialogService.dispatch.subscribe(dialog => {
+            if (dialog.action === 'DELETE_RECIPE'){
+                this.recipeService.deleteRecipe(this.id);
+                this.router.navigate(['/recipes']);
+            }
+        })
     }
 
     ngOnDestroy(): void {
@@ -113,8 +123,12 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
         if (this.formType === 'new'){
             this.router.navigate(['/recipes']);
         }else {
-            this.recipeService.deleteRecipe(this.id);
-            this.router.navigate(['/recipes']);
+            //-- open dialog to confirm the deletion action
+            this.dialogService.dialog.next({
+                open: true, 
+                action: 'DELETE_RECIPE',
+                title: 'Are you sure you want to delete ' + this.recipe.name + '?'
+            });
         }
     }
 

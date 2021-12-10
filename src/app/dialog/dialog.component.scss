@@ -1,0 +1,46 @@
+h2{
+    font-size: 1.25rem;
+    line-height: 1.35;
+    padding: 16px;
+    margin: 0;
+}
+
+.overlay{
+    position: fixed;
+    background-color: hsla(0, 0%, 0%, 0.5);
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    &.hide{
+        display: none;
+    }
+}
+
+.modal{
+    position: fixed;
+    width: calc(100% - 32px);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+
+    
+    border-radius: 4px;
+
+    &.hide{
+        display: none;
+    }
+}
+
+.button-suite{
+    display: flex;
+    justify-content: flex-end;
+    padding: 8px 16px;
+    border-top: 1px solid var(--gray-lt);
+
+    button{
+        width: 25%;
+    }
+}
