@@ -5,7 +5,14 @@
                 <a routerLink="/recipes" routerLinkActive="active">Recipes</a>
                 <a routerLink="/list" routerLinkActive="active">Shopping List</a>
             </nav>
-            <a class="account-link">Log in</a>
+            <a routerLink="/login" class="btn-icon login-btn" [class.admin]="isAdmin">
+                <span *ngIf="isAdmin" class="material-icons">
+                    how_to_reg
+                </span>
+                <span *ngIf="!isAdmin" class="material-icons">
+                    person
+                </span>
+            </a>
         </div>
     </div>
 </header>

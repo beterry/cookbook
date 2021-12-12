@@ -24,9 +24,10 @@ header{
     }
 }
 
-.account-link{
-    padding: 16px;
+.login-btn{
+    color: var(--gray-md);
 
-    /* aligns text with the main content */
-    margin-right: -16px;
+    &.admin{
+        color: var(--bright);
+    }
 }
