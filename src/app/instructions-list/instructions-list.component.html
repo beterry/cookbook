@@ -3,7 +3,7 @@
         <h3 class="number">{{i + 1}}</h3>
         <div class="content">
             <p class="text">{{instruction.text}}</p>
-            <ul class="ingredient-ctn" *ngIf="instruction.ingredients">
+            <ul class="ingredient-ctn" *ngIf="instruction.ingredients?.length">
                 <li *ngFor="let ingredient of instruction.ingredients" class="ingredient">
                     {{ingredient}}
                 </li>

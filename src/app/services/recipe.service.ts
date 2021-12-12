@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Recipe } from '../recipe.model';
-import { RECIPES } from '../mock-recipes';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map, take, tap } from 'rxjs/operators';
+import { UserService } from './user.service';
 
 @Injectable({
     providedIn: 'root',
@@ -14,7 +14,10 @@ export class RecipeService {
         'https://cookbook-e918c-default-rtdb.firebaseio.com/';
     public loadedFromFirebase: boolean = false;
 
-    constructor(private http: HttpClient) {}
+    constructor(
+        private http: HttpClient,
+        private userService: UserService,
+    ) {}
 
     fetchRecipes(): Observable<Recipe[]> {
         return this.http.get<Recipe[]>(this.url + 'recipes.json')
@@ -52,7 +55,7 @@ export class RecipeService {
                     //-- because the recipes are not yet loaded from Firebase,
                     //-- fetch the recipes so updating and deleting works correctly
                     tap(() => {
-                        this.fetchRecipes().subscribe(() => console.log('All recipes loaded in the background'))
+                        this.fetchRecipes().subscribe(() => console.log('All recipes loaded in the background.'))
                     })
                 )
         }
@@ -67,7 +70,7 @@ export class RecipeService {
         });
 
         //-- add recipe to db
-        this.dbAddRecipe(newRecipe);
+        this.dbAddRecipe(newRecipe);  
     }
 
     dbAddRecipe(newRecipe: Recipe) {

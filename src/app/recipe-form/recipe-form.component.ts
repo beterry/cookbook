@@ -78,6 +78,9 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
         //-- makes sure if you navigate back to the same recipe, no steps are open
         this.formService.editPrepStep.next(-1);
         this.formService.editInstructionStep.next(-1);
+
+        //-- unsubscribe so this form is no longer listening for the dialog
+        this.dialogDeleteSubscription.unsubscribe();
     }
 
     getRecipe(): Observable<Recipe>{
@@ -107,8 +110,6 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
     }
 
     handleSubmit(){
-        console.warn(this.recipeForm);
-
         if (this.formType === 'new'){
             this.recipeService.addRecipe(this.recipeForm.value);
             this.router.navigate(['/recipes']);

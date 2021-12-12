@@ -2,7 +2,7 @@
     <li *ngFor="let step of prepList" class="step">
         <h3>{{step.name}}</h3>
         <p *ngIf="step.description">{{step.description}}</p>
-        <ul *ngIf="step.ingredients" class="ingredient-ctn">
+        <ul *ngIf="step.ingredients?.length" class="ingredient-ctn">
             <li *ngFor="let ingredient of step.ingredients" class="ingredient">
                 {{ingredient}}
             </li>
