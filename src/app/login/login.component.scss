@@ -5,3 +5,13 @@ form{
 h1{
     margin: 0;
 }
+
+.error-message{
+    border: 1px solid var(--danger);
+    background-color: var(--danger-10);
+    color: var(--danger);
+    font-weight: 600;
+    font-size: .875rem;
+    padding: 16px;
+    border-radius: 4px;
+}

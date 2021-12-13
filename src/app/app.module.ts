@@ -20,6 +20,7 @@ import { DropdownDirective } from './directives/dropdown.directive';
 import { DialogComponent } from './dialog/dialog.component';
 import { LoginComponent } from './login/login.component';
 import { UserInterceptorService } from './services/user-interceptor.service';
+import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { UserInterceptorService } from './services/user-interceptor.service';
     InstructionStepComponent,
     DropdownDirective,
     DialogComponent,
-    LoginComponent
+    LoginComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,
