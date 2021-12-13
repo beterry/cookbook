@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { UserService } from '../services/user.service';
 
@@ -7,7 +7,7 @@ import { UserService } from '../services/user.service';
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
     isAdmin: boolean = false;
     userSub: Subscription;
 
@@ -19,5 +19,13 @@ export class HeaderComponent implements OnInit {
         this.userSub = this.userService.user.subscribe(user => {
             this.isAdmin = !!user;
         })
+    }
+
+    ngOnDestroy(): void {
+        this.userSub.unsubscribe();
+    }
+
+    handleLogout() {
+        this.userService.logout();
     }
 }

@@ -26,8 +26,8 @@ header{
 
 .login-btn{
     color: var(--gray-md);
+}
 
-    &.admin{
-        color: var(--bright);
-    }
+.admin-btn{
+    color: var(--bright);
 }

@@ -43,6 +43,10 @@ export class UserService {
         )
     }
 
+    logout() {
+        this.user.next(null);
+    }
+
     private handleError(errorRes: HttpErrorResponse){
         let errorMessage = 'There was an error logging in.'
 
