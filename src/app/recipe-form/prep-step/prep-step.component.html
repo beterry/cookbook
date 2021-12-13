@@ -19,12 +19,12 @@
                     delete
                 </span>
             </button>
-            <button *ngIf="!editStep" class="btn-icon" type="button" (click)="handlePrepStepUp()">
+            <button *ngIf="!editStep" class="btn-icon muted" type="button" (click)="handlePrepStepUp()">
                 <span class="material-icons">
                     arrow_upward
                 </span>
             </button>
-            <button *ngIf="!editStep" class="btn-icon" type="button" (click)="handlePrepStepDown()">
+            <button *ngIf="!editStep" class="btn-icon muted" type="button" (click)="handlePrepStepDown()">
                 <span class="material-icons">
                     arrow_downward
                 </span>
@@ -46,7 +46,7 @@
             <label *ngIf="ingredients.length">Ingredients</label>
             <div class="form-group step-ingredient" *ngFor="let ingredient of ingredients.controls; let j = index">
                 <input type="text" [formControlName]="j" placeholder="Ingredient Name">
-                <button class="btn-icon danger" type="button" (click)="handleDeleteIngredient(j)">
+                <button class="btn-icon muted" type="button" (click)="handleDeleteIngredient(j)">
                     <span class="material-icons">
                         clear
                     </span>

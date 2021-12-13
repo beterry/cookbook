@@ -48,13 +48,10 @@ h1, h2, h3{
 
 .prep-section, .instruction-section{
     border-top: 1px solid var(--gray-lt);
+    }
+
+.step-ctn{
     border-bottom: 1px solid var(--gray-lt);
-
-    padding: 2px 0;
-
-    display: grid;
-    grid-template-columns: 100%;
-    gap: 2px;
 }
 
 .loading{

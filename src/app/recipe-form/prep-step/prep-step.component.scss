@@ -2,8 +2,6 @@ h1, h2, h3{
     margin: 0;
 }
 .prep{
-    border-top: 1px solid var(--gray-lt);
-    border-bottom: 1px solid var(--gray-lt);
     padding: 8px 0;
 
     display: grid;
@@ -25,11 +23,10 @@ h1, h2, h3{
     .button-suite{
         display: grid;
         align-items: center;
-        gap: 8px;
         
         &.left{
             grid-template-columns: repeat(2, auto);
-            
+            gap: 8px;
         }
         
         &.right{

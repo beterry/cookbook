@@ -42,7 +42,7 @@
             <div class="form-group ingredient" *ngFor="let ingredient of ingredients.controls; let i = index" [formGroupName]="i">
                 <input type="text" formControlName="name" placeholder="Ingredient Name">
                 <input type="text" formControlName="quantity" placeholder="Amount">
-                <button class="btn-icon danger" type="button" (click)="handleDeleteIngredient(i)">
+                <button class="btn-icon muted" type="button" (click)="handleDeleteIngredient(i)">
                     <span class="material-icons">
                         clear
                     </span>
@@ -59,14 +59,15 @@
         <!-- PREPARATION -->
         <h2>Preparation</h2>
         <section class="prep-section" formArrayName="prep">
-            <app-prep-step 
+            <div app-prep-step
+                class="step-ctn" 
                 *ngFor="let step of prep.controls; let i = index"
                 [group]="getPrepStep(i)"
                 [stepIndex]="i"
                 (delete)="handleDeletePrepStep(i)"
                 (moveUp)="handlePrepStepUp(i)"
                 (moveDown)="handlePrepStepDown(i)"
-            ></app-prep-step>
+            ></div>
         </section>
         <button class="btn-contained" type="button" (click)="handleAddPrepStep()">
             <span class="material-icons">
@@ -78,14 +79,15 @@
         <!-- INSTRUCTIONS -->
         <h2>Instructions</h2>
         <section class="instruction-section" formArrayName="instructions">
-            <app-instruction-step 
+            <div app-instruction-step 
+                class="step-ctn" 
                 *ngFor="let step of instructions.controls; let i = index"
                 [group]="getInstructionStep(i)"
                 [stepIndex]="i"
                 (delete)="handleDeleteInstruction(i)"
                 (moveUp)="handleInstructionUp(i)"
                 (moveDown)="handleInstructionDown(i)"
-            ></app-instruction-step>
+            ></div>
         </section>
         <button class="btn-contained" type="button" (click)="handleAddInstruction()">
             <span class="material-icons">

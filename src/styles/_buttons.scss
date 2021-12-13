@@ -73,4 +73,8 @@
     &.danger{
         color: var(--danger);
     }
+
+    &.muted{
+        color: var(--gray-md)
+    }
 }

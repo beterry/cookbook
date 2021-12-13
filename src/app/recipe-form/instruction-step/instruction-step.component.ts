@@ -1,14 +1,14 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { RecipeFormService } from '../recipe-form.service';
 
 @Component({
-  selector: 'app-instruction-step',
+  selector: '[app-instruction-step]',
   templateUrl: './instruction-step.component.html',
   styleUrls: ['./instruction-step.component.scss']
 })
-export class InstructionStepComponent implements OnInit {
+export class InstructionStepComponent implements OnInit, OnDestroy {
     @Input() group: FormGroup;
     @Input() stepIndex: number;
     @Output() delete = new EventEmitter();
@@ -36,6 +36,10 @@ export class InstructionStepComponent implements OnInit {
                 this.editStep = true;
             }
         })
+    }
+
+    ngOnDestroy(): void {
+        this.editStepSubscription.unsubscribe();
     }
 
     handleDeleteInstruction(){

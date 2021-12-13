@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { RecipeFormService } from '../recipe-form.service';
 
 @Component({
-    selector: 'app-prep-step',
+    selector: '[app-prep-step]',
     templateUrl: './prep-step.component.html',
     styleUrls: ['./prep-step.component.scss'],
 })
