@@ -21,6 +21,7 @@ interface LoginRes {
 export class UserService {
     user = new BehaviorSubject<User>(null);
     private loginUrl: string = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=';
+    private autoLogoutTimer: any;
 
     constructor(
         private http: HttpClient,
@@ -38,13 +39,51 @@ export class UserService {
 
                 const user = new User(res.email, res.localId, res.idToken, expirationDate);
                 this.user.next(user);
+                this.autoLogout(parseInt(res.expiresIn) * 1000);
+                localStorage.setItem('user', JSON.stringify(user));
             }),
             catchError(this.handleError)
         )
     }
 
+    autoLogin(){
+        console.log('Attempting auto-login...')
+        const userData: {
+            email: string,
+            id: string,
+            _token: string,
+            _tokenExpirationDate: string
+        } = JSON.parse(localStorage.getItem('user'));
+
+        if (!userData){
+            console.log('Auto-login failed.')
+            return;
+        }
+
+        console.log('Auto-login success.')
+        const loadedUser = new User(userData.email, userData.id, userData._token, new Date(userData._tokenExpirationDate));
+        if (loadedUser.token){
+            this.user.next(loadedUser);
+
+            const expirationDur = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
+            this.autoLogout(expirationDur);
+        }
+    }
+
     logout() {
         this.user.next(null);
+        localStorage.removeItem('user');
+
+        //-- clear timer created in autoLogout
+        if(this.autoLogoutTimer){
+            clearTimeout(this.autoLogoutTimer);
+        }
+    }
+
+    autoLogout(expirationDuration: number) {
+        this.autoLogoutTimer = setTimeout(() => {
+            this.logout();
+        }, expirationDuration);
     }
 
     private handleError(errorRes: HttpErrorResponse){
