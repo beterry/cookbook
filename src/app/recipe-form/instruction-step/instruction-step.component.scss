@@ -12,7 +12,7 @@ h1, h2, h3{
 }
 
 .instruction{
-    padding: 8px 0;
+    padding: var(--spacer) 0;
 
     display: grid;
     grid-template-columns: 100%;
@@ -36,7 +36,7 @@ h1, h2, h3{
         
         &.left{
             gap: 8px;
-            grid-template-columns: auto calc(100vw - 32px - 150px);
+            grid-template-columns: auto 1fr;
         }
 
         &.right{
@@ -52,6 +52,8 @@ h1, h2, h3{
 }
 
 .step-preview{
+    width: calc(100vw - (16px * 5) - 120px - 8px);
+    max-width: calc((1200px * .667) - (16px * 5) - 120px - 16px);
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -61,6 +63,14 @@ h1, h2, h3{
     font-style: italic;
 
     margin-top: 4px;
+
+    @media screen and (min-width: 768px) {
+        width: calc((100vw / 2) - (16px * 5) - 120px - 8px);
+    }
+
+    @media screen and (min-width: 960px) {
+        width: calc((100vw * .6667) - (16px * 5) - 120px - 8px);
+    }
 }
 
 .instruction.closed.ng-invalid{

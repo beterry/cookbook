@@ -5,11 +5,7 @@
         <div class="form-header">
             <h1>{{formType | titlecase}} Recipe</h1>
             <div class="header-buttons">
-                <button class="btn-icon save" type="submit" [disabled]="!recipeForm.valid">
-                    <span class="material-icons">
-                        save
-                    </span>
-                </button>
+                <button class="btn-contained save" type="submit" [disabled]="!recipeForm.valid">Save</button>
                 <button class="btn-icon delete" type="button" (click)="handleDeleteRecipe()">
                     <span class="material-icons">
                         delete
@@ -17,85 +13,101 @@
                 </button>
             </div>
         </div>
-    
-        <!-- NAME -->
-        <div class="form-control">
-            <label for="name">Name</label>
-            <input id="name" type="text" formControlName="name" placeholder="Recipe Name">
-        </div>
-    
-        <!-- IMAGE -->
-        <div class="form-control">
-            <label for="image">Image URL</label>
-            <input id="image" type="text" formControlName="imageURL" placeholder="https://www.image.com/example">
-            <img *ngIf="recipeForm.value.imageURL" class="img-preview" [src]="recipeForm.value.imageURL" alt=""/>
-        </div>
-    
-        <!-- INGREDIENTS -->
-        <h2>Ingredients</h2>
-        <section class="ingredients-ctn" formArrayName="ingredients">
-            <div class="form-group ingredient" *ngIf="ingredients.length">
-                <label>Name</label>
-                <label>Quantity</label>
-                <div class="header-spacer"></div>
+
+        <div class="form-body">
+
+            <!-- GENERAL -->
+            <section class="general-section form-group">
+                <h2>General</h2>
+                <!-- NAME -->
+                <div class="form-control">
+                    <label for="name">Name</label>
+                    <input id="name" type="text" formControlName="name" placeholder="Recipe Name">
+                </div>
+            
+                <!-- IMAGE -->
+                <div class="form-control">
+                    <label for="image">Image URL</label>
+                    <input id="image" type="text" formControlName="imageURL" placeholder="https://www.image.com/example">
+                    <img *ngIf="recipeForm.value.imageURL" class="img-preview" [src]="recipeForm.value.imageURL" alt=""/>
+                </div>
+            </section>
+        
+            <!-- INGREDIENTS -->
+            <div class="ingredients-rail">
+                <section class="ingredients-section form-group">
+                    <h2>Ingredients</h2>
+                    <div class="ingredients-ctn form-control" formArrayName="ingredients">
+                        <div class="ingredient" *ngIf="ingredients.length">
+                            <label>Name</label>
+                            <label>Quantity</label>
+                            <div class="header-spacer"></div>
+                        </div>
+                        <div class="ingredient" *ngFor="let ingredient of ingredients.controls; let i = index" [formGroupName]="i">
+                            <input type="text" formControlName="name" placeholder="Ingredient Name">
+                            <input type="text" formControlName="quantity" placeholder="Amount">
+                            <button class="btn-icon muted" type="button" (click)="handleDeleteIngredient(i)">
+                                <span class="material-icons">
+                                    clear
+                                </span>
+                            </button>
+                        </div>
+                        <button class="btn-contained" (click)="handleAddIngredient()" type="button">
+                            <span class="material-icons">
+                                add
+                            </span>
+                            Ingredient
+                        </button>
+                    </div>
+                </section>
             </div>
-            <div class="form-group ingredient" *ngFor="let ingredient of ingredients.controls; let i = index" [formGroupName]="i">
-                <input type="text" formControlName="name" placeholder="Ingredient Name">
-                <input type="text" formControlName="quantity" placeholder="Amount">
-                <button class="btn-icon muted" type="button" (click)="handleDeleteIngredient(i)">
+
+            <!-- PREPARATION -->
+            <section class="prep-section form-group">
+                <h2>Preparation</h2>
+                <div class="prep-ctn" formArrayName="prep">
+                    <div app-prep-step
+                        class="step-ctn" 
+                        *ngFor="let step of prep.controls; let i = index"
+                        [group]="getPrepStep(i)"
+                        [stepIndex]="i"
+                        (delete)="handleDeletePrepStep(i)"
+                        (moveUp)="handlePrepStepUp(i)"
+                        (moveDown)="handlePrepStepDown(i)"
+                    ></div>
+                </div>
+                <button class="btn-contained" type="button" (click)="handleAddPrepStep()">
                     <span class="material-icons">
-                        clear
+                        add
                     </span>
+                    Prep Step
                 </button>
-            </div>
-            <button class="btn-contained" (click)="handleAddIngredient()" type="button">
-                <span class="material-icons">
-                    add
-                </span>
-                Ingredient
-            </button>
-        </section>
-    
-        <!-- PREPARATION -->
-        <h2>Preparation</h2>
-        <section class="prep-section" formArrayName="prep">
-            <div app-prep-step
-                class="step-ctn" 
-                *ngFor="let step of prep.controls; let i = index"
-                [group]="getPrepStep(i)"
-                [stepIndex]="i"
-                (delete)="handleDeletePrepStep(i)"
-                (moveUp)="handlePrepStepUp(i)"
-                (moveDown)="handlePrepStepDown(i)"
-            ></div>
-        </section>
-        <button class="btn-contained" type="button" (click)="handleAddPrepStep()">
-            <span class="material-icons">
-                add
-            </span>
-            Prep Step
-        </button>
-    
-        <!-- INSTRUCTIONS -->
-        <h2>Instructions</h2>
-        <section class="instruction-section" formArrayName="instructions">
-            <div app-instruction-step 
-                class="step-ctn" 
-                *ngFor="let step of instructions.controls; let i = index"
-                [group]="getInstructionStep(i)"
-                [stepIndex]="i"
-                (delete)="handleDeleteInstruction(i)"
-                (moveUp)="handleInstructionUp(i)"
-                (moveDown)="handleInstructionDown(i)"
-            ></div>
-        </section>
-        <button class="btn-contained" type="button" (click)="handleAddInstruction()">
-            <span class="material-icons">
-                add
-            </span>
-            Instruction
-        </button>
-    
+            </section>
+        
+            <!-- INSTRUCTIONS -->
+            <section class="instruction-section form-group">
+                <h2>Instructions</h2>
+                <div class="instructions-ctn" formArrayName="instructions">
+                    <div app-instruction-step 
+                        class="step-ctn" 
+                        *ngFor="let step of instructions.controls; let i = index"
+                        [group]="getInstructionStep(i)"
+                        [stepIndex]="i"
+                        (delete)="handleDeleteInstruction(i)"
+                        (moveUp)="handleInstructionUp(i)"
+                        (moveDown)="handleInstructionDown(i)"
+                    ></div>
+                </div>
+                <button class="btn-contained" type="button" (click)="handleAddInstruction()">
+                    <span class="material-icons">
+                        add
+                    </span>
+                    Instruction
+                </button>
+            </section>
+        
+        <!-- END OF FORM BODY -->
+        </div>
     </form>
 </div>
 

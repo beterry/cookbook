@@ -1,7 +1,6 @@
 <form #loginForm="ngForm" (ngSubmit)="handleSubmit(loginForm.value)">
     <div class="form-group">
         <h1>Admin Login</h1>
-        <p>Sorry, at this time, Ben is the only person able to sign in and edit the cookbook.</p>
         <div class="form-control">
             <label for="email">Username</label>
             <input ngModel name="email" type="email" id="email" placeholder="benterry.dev@gmail.com" required email>
@@ -10,14 +9,15 @@
             <label for="password">Password</label>
             <input ngModel name="password" type="password" id="password" required>
         </div>
-
+        
         <!-- ERROR MESSAGE -->
         <div *ngIf="error" class="error-message">
             <p>{{error}}</p>
         </div>
-
+        
         <!-- SUBMIT BUTTON -->
         <button class="btn-contained" [disabled]="!loginForm.valid">Log in</button>
+        <p>Please contact Ben for Admin access.</p>
 
         <!-- LOADING -->
         <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>

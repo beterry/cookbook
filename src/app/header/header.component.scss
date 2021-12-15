@@ -1,6 +1,6 @@
 header{
     background-color: white;
-    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.15);
+    border-bottom: 1px solid var(--gray-lt);
 }
 
 .inner{
@@ -11,9 +11,6 @@ header{
 
 .main-nav{
     display: flex;
-
-    /* aligns text with the main content */
-    margin-left: -16px;
 }
 
 .main-nav a{

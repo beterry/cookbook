@@ -1,14 +1,80 @@
 form{
-    padding: 16px 0; 
-    
+    padding: 16px; 
     display: grid;
     grid-template-columns: 100%;
     gap: 16px;
 }
 
+section{
+    background-color: white;
+    padding: var(--spacer);
+    border-radius: 4px;
+    border: var(--border);
+}
+
 h1, h2, h3{
     margin: 0;
 }
+
+h2{
+    border-bottom: 1px solid var(--gray-lt);
+    padding-bottom: var(--spacer);
+}
+
+// LAYOUT
+
+.form-body{
+    display: grid;
+    grid-template-columns: 100%;
+    gap: var(--spacer);
+
+    grid-template-areas: 
+        "general"
+        "ingredients"
+        "prep"
+        "instructions"
+    ;
+
+    align-items: start;
+
+    @media screen and (min-width: 768px) {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: 
+            "general ingredients"
+            "prep ingredients"
+            "instructions ingredients"
+        ;
+    }
+
+    @media screen and (min-width: 960px) {
+        grid-template-columns: 3fr 2fr;
+    }
+}
+
+.general-section{
+    grid-area: general;
+}
+
+.ingredients-rail{
+    grid-area: ingredients;
+    position: relative;
+    align-self: stretch;
+}
+
+.ingredients-section{
+    // position: sticky;
+    top: var(--spacer);
+}
+
+.prep-section{
+    grid-area: prep;
+}
+
+.instructions-section{
+    grid-area: instructions;
+}
+
+// HEADER
 
 .form-header{
     display: flex;
@@ -17,7 +83,9 @@ h1, h2, h3{
 }
 
 .header-buttons{
-    display: flex;
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 8px;
 
     .delete{
         color: var(--danger);
@@ -25,9 +93,8 @@ h1, h2, h3{
 
 }
 
-.ingredients-ctn{
-    display: grid;
-    gap: 8px;
+.prep-ctn, .instructions-ctn{
+    margin-top: calc(-1 * var(--spacer));
 }
 
 .ingredient{
@@ -45,10 +112,6 @@ h1, h2, h3{
 .header-spacer{
     width: 40px;
 }
-
-.prep-section, .instruction-section{
-    border-top: 1px solid var(--gray-lt);
-    }
 
 .step-ctn{
     border-bottom: 1px solid var(--gray-lt);

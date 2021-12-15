@@ -11,7 +11,7 @@
             </button>
             <div>
                 <h3>Step {{stepIndex + 1}}</h3>
-                <p *ngIf="!editStep" class="step-preview">{{group.value.text}}</p>
+                <div *ngIf="!editStep" class="step-preview">{{group.value.text}}</div>
             </div>
         </div>
 

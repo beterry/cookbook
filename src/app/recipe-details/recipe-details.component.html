@@ -1,4 +1,4 @@
-<div *ngIf="recipe">
+<div class="recipe-layout" *ngIf="recipe">
     <div class="image-ctn full-width-phone">
         <img [src]="recipe.imageURL" alt="" />
         <div class="action-ctn" appDropdown>
@@ -11,35 +11,37 @@
             </div>
         </div>
     </div>
-    <h1>{{recipe.name}}</h1>
-    <nav class="full-width-phone">
-        <button 
-            class="tab" 
-            [class.selected]="tab === 'ingredients'"
-            (click)="handleTab('ingredients')"
-        >
-            Ingredients
-        </button>
-        <button 
-            class="tab" 
-            [class.selected]="tab === 'prep'"
-            (click)="handleTab('prep')"
-        >
-            Prep
-        </button>
-        <button 
-            class="tab" 
-            [class.selected]="tab === 'instructions'"
-            (click)="handleTab('instructions')"
-        >
-            Instructions
-        </button>
-    </nav>
-    <section class="tab-content full-width-phone">
-        <app-ingredient-list *ngIf="tab === 'ingredients'" [ingredients]="recipe.ingredients"></app-ingredient-list>
-        <app-prep-list *ngIf="tab === 'prep'" [prepList]="recipe.prep"></app-prep-list>
-        <app-instructions-list *ngIf="tab === 'instructions'" [instructions]="recipe.instructions"></app-instructions-list>
-    </section>
+    <h1 class="recipe-name">{{recipe.name}}</h1>
+    <div>
+        <nav>
+            <button 
+                class="tab" 
+                [class.selected]="tab === 'ingredients'"
+                (click)="handleTab('ingredients')"
+            >
+                Ingredients
+            </button>
+            <button 
+                class="tab" 
+                [class.selected]="tab === 'prep'"
+                (click)="handleTab('prep')"
+            >
+                Prep
+            </button>
+            <button 
+                class="tab" 
+                [class.selected]="tab === 'instructions'"
+                (click)="handleTab('instructions')"
+            >
+                Instructions
+            </button>
+        </nav>
+        <section class="tab-content">
+            <app-ingredient-list *ngIf="tab === 'ingredients'" [ingredients]="recipe.ingredients"></app-ingredient-list>
+            <app-prep-list *ngIf="tab === 'prep'" [prepList]="recipe.prep"></app-prep-list>
+            <app-instructions-list *ngIf="tab === 'instructions'" [instructions]="recipe.instructions"></app-instructions-list>
+        </section>
+    </div>
 </div>
 
 <div class="loading" *ngIf="!recipe">
