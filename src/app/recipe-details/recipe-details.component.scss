@@ -1,5 +1,13 @@
 .recipe-name{
     padding: 0 var(--spacer);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h1{
+        margin-right: 50px;
+    }
 
     @media screen and (min-width: 768px) {
         padding: 0;
@@ -85,14 +93,9 @@ img{
     }
 }
 
-.image-ctn{
-    position: relative;
-}
-
-/* ACTION BUTTONS */
-.action-ctn{
+/* ACTION BUTTONS MOBILE */
+.actions-mobile{
     position: absolute;
-    top: 16px;
     right: 16px;
 
     .action-dropdown{
@@ -103,6 +106,7 @@ img{
         background-color: white;
         width: 175px;
         border-radius: 4px;
+        border: var(--border);
     }
 
     &.open{
@@ -110,18 +114,20 @@ img{
             display: block;
         }
     }
+
+    @media screen and (min-width: 768px) {
+        display: none;
+    }
 }
 
-.menu-button{
-    width: 40px;
-    height: 40px;
-    background-color: var(--primary);
-    border: none;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
+.actions-desktop{
+    display: none;
+    grid-template-columns: auto auto;
+    gap: 8px;
+
+    @media screen and (min-width: 768px) {
+        display: grid;
+    }
 }
 
 .menu-button img{

@@ -62,22 +62,23 @@ export class RecipeService {
     }
 
     addRecipe(newRecipe: Recipe) {
+        const tempId = new Date().getTime().toString();
+
         //-- add recipe to local service
         //-- give it a temp id which is used only until the page is refreshed
         this.recipes.push({
             ...newRecipe,
-            id: new Date().getTime().toString(),
+            id: tempId,
         });
 
         //-- add recipe to db
-        this.dbAddRecipe(newRecipe);  
+        this.dbAddRecipe(newRecipe, tempId);  
     }
 
-    dbAddRecipe(newRecipe: Recipe) {
+    dbAddRecipe(newRecipe: Recipe, tempId: string) {
         this.http.post(this.url + 'recipes.json', newRecipe)
             .subscribe((res) => {
-                console.log('Added to Firebase:');
-                console.log(res);
+                console.log('Recipe added to Firebase.');
             });
     }
 

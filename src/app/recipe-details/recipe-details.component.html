@@ -1,18 +1,36 @@
 <div class="recipe-layout" *ngIf="recipe">
-    <div class="image-ctn full-width-phone">
-        <img [src]="recipe.imageURL" alt="" />
-        <div class="action-ctn" appDropdown>
-            <button class="menu-button">
-                <img src="assets/icons/icon-ellipsis.svg" alt="menu">
+
+    <!-- IMAGE -->
+    <img [src]="recipe.imageURL" alt="" />
+
+    <!-- HEADER -->
+    <div class="recipe-name">
+        <h1>{{recipe.name}}</h1>
+        <div class="actions-mobile" appDropdown>
+            <button class="btn-icon">
+                <span class="material-icons">
+                    more_horiz
+                </span>
             </button>
             <div class="action-dropdown">
                 <button class="action-btn" (click)="handleAddToList()">Add to List</button>
                 <a class="action-btn" [routerLink]="['/recipe','edit', recipe.id]">Edit</a>
             </div>
         </div>
+        <div class="actions-desktop">
+            <button class="btn-outline" (click)="handleAddToList()">Add to List</button>
+            <a class="btn-icon" [routerLink]="['/recipe','edit', recipe.id]">
+                <span class="material-icons">
+                    edit
+                </span>
+            </a>
+        </div>
     </div>
-    <h1 class="recipe-name">{{recipe.name}}</h1>
+
+    <!-- DETAILS CONTAINER -->
     <div>
+
+        <!-- TABS -->
         <nav>
             <button 
                 class="tab" 
@@ -36,6 +54,8 @@
                 Instructions
             </button>
         </nav>
+
+        <!-- DEATILS -->
         <section class="tab-content">
             <app-ingredient-list *ngIf="tab === 'ingredients'" [ingredients]="recipe.ingredients"></app-ingredient-list>
             <app-prep-list *ngIf="tab === 'prep'" [prepList]="recipe.prep"></app-prep-list>
@@ -44,6 +64,7 @@
     </div>
 </div>
 
+<!-- LOADING -->
 <div class="loading" *ngIf="!recipe">
     Loading...
 </div>
