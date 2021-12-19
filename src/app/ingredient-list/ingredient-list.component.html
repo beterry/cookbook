@@ -1,6 +1,6 @@
 <ul>
     <li *ngFor="let ingredient of ingredients">
         <p>{{ingredient.name}}</p>
-        <p class="quantity">{{ingredient.quantity}}</p>
+        <p class="quantity">{{ingredient.quantity}} {{ingredient.unit}}</p>
     </li>
 </ul>

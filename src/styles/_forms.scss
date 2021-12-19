@@ -17,9 +17,14 @@ input, textarea{
     border: var(--border);
     border-radius: 4px;
     // box-shadow: 0px 2px 4px rgba($color: #000000, $alpha: .1);
-    padding: 8px 16px;
+    padding: 8px 12px;
     resize: none;
     line-height: 1.35;
+    // font-size: .875rem;
+}
+
+input[type=number]{
+    padding-right: 0px;
 }
 
 .form-control{

@@ -136,7 +136,8 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
     handleAddIngredient(){
         this.ingredients.push(this.builder.group({
             name: ['', Validators.required],
-            quantity: '',
+            quantity: 1,
+            unit: '',
         }))
     }
 
@@ -233,6 +234,7 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
                     this.builder.group({
                         name: [ingredient.name, Validators.required],
                         quantity: [ingredient.quantity],
+                        unit: [ingredient.unit || ''],
                     })
                 )
             })

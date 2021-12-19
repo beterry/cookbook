@@ -40,13 +40,16 @@
                     <div class="ingredients-ctn form-control" formArrayName="ingredients">
                         <div class="ingredient" *ngIf="ingredients.length">
                             <label>Name</label>
-                            <label>Quantity</label>
+                            <label>Qty</label>
+                            <label>Unit</label>
                             <div class="header-spacer"></div>
                         </div>
                         <div class="ingredient" *ngFor="let ingredient of ingredients.controls; let i = index" [formGroupName]="i">
                             <input type="text" formControlName="name" placeholder="Ingredient Name">
-                            <input type="text" formControlName="quantity" placeholder="Amount">
-                            <button class="btn-icon muted" type="button" (click)="handleDeleteIngredient(i)">
+                            <input type="number" step=".125" min="0" formControlName="quantity" placeholder="0">
+                            <input type="text" formControlName="unit" placeholder="Unit">
+
+                            <button class="btn-icon muted" type="button" (click)="handleDeleteIngredient(i)" tabindex="-1">
                                 <span class="material-icons">
                                     clear
                                 </span>
