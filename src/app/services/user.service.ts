@@ -56,17 +56,20 @@ export class UserService {
         } = JSON.parse(localStorage.getItem('user'));
 
         if (!userData){
-            console.log('Auto-login failed.')
+            console.log('Auto-login failed.');
             return;
         }
 
-        console.log('Auto-login success.')
         const loadedUser = new User(userData.email, userData.id, userData._token, new Date(userData._tokenExpirationDate));
         if (loadedUser.token){
+            console.log('Auto-login success.')
             this.user.next(loadedUser);
 
             const expirationDur = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
             this.autoLogout(expirationDur);
+        }else {
+            localStorage.removeItem('user');
+            console.log('Auto-login failed.');
         }
     }
 
