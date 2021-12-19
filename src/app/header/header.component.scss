@@ -28,3 +28,24 @@ header{
 .admin-btn{
     color: var(--bright);
 }
+
+.shopping-list-link{
+    position: relative;
+}
+
+.list-quantity{
+    position: absolute;
+    top: 10%;
+    right: 2px;
+    background-color: var(--primary);
+    padding: 0 4px;
+    height: 20px;
+    min-width: 20px;
+    border-radius: 10px;
+    color: white;
+    font-size: .75rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

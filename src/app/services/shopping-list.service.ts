@@ -6,16 +6,7 @@ import { Ingredient } from '../recipe.model';
     providedIn: 'root',
 })
 export class ShoppingListService {
-    shoppingList: Ingredient[] = [
-        {
-            name: 'Test Ingredient 1',
-            quantity: '1 cup',
-        },
-        {
-            name: 'Test Ingredient 2',
-            quantity: '2 tbsp',
-        }
-    ];
+    shoppingList: Ingredient[] = [];
     shoppingListChanged = new Subject<Ingredient[]>();
 
     constructor() {}

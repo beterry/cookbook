@@ -3,7 +3,10 @@
         <div class="inner">
             <nav class="main-nav">
                 <a routerLink="/recipes" routerLinkActive="active">Recipes</a>
-                <a routerLink="/list" routerLinkActive="active">Shopping List</a>
+                <a class="shopping-list-link" routerLink="/list" routerLinkActive="active">
+                    Shopping List
+                    <div *ngIf="listQuantity > 0" class="list-quantity">{{listQuantity}}</div>
+                </a>
             </nav>
             <a *ngIf="!isAdmin" routerLink="/login" class="btn-icon login-btn">
                 <span class="material-icons">
