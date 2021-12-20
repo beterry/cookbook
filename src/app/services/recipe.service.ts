@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Recipe } from '../recipe.model';
+import { Ingredient, Recipe } from '../recipe.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError, of } from 'rxjs';
 import { catchError, map, take, tap } from 'rxjs/operators';
@@ -142,5 +142,20 @@ export class RecipeService {
             });
         }
         return recipeList;
+    }
+
+    getIngredients(recipeIds: string[]): Ingredient[]{
+        let ingredients = [];
+        const recipes = JSON.parse(JSON.stringify(this.recipes));
+
+        recipeIds.forEach((id) => {
+            const recipeIndex = recipes.findIndex((recipe) => recipe.id === id);
+
+            if (recipeIndex > -1){
+                 ingredients = [...ingredients, ...recipes[recipeIndex].ingredients];
+            }
+        })
+
+        return ingredients;
     }
 }

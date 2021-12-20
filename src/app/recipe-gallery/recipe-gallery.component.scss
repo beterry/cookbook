@@ -5,12 +5,37 @@
     gap: var(--spacer);
 }
 
+.gallery-heading{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    min-height: 40px;
+}
+
 .recipe-grid{
     --col: 2;
 
     display: grid;
     grid-template-columns: repeat(var(--col), 1fr);
     gap: 16px;
+}
+
+.recipe-card{
+    position: relative;
+}
+
+.multi-select{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 0;
+    right: 0;
+    background: radial-gradient(circle, white 25%, transparent 70%);
+    
+    &:hover{
+        background-color: transparent;
+    }
 }
 
 @mixin img-size {
