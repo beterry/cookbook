@@ -14,6 +14,7 @@ const routes: Routes = [
     { path: 'recipe/:form', component: RecipeFormComponent },
     { path: 'list', component: ShoppingListComponent },
     { path: 'login', component: LoginComponent },
+    { path: '**', redirectTo: 'recipes' },
 ]
 
 @NgModule({

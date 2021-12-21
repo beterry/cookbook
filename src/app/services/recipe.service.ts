@@ -41,21 +41,25 @@ export class RecipeService {
 
     getRecipe(id: string): Observable<Recipe>{
         if (this.loadedFromFirebase){
-            const recipe = this.recipes.find((r) => r.id === id)!;
-            return of(recipe);
+            const foundRecipeIndex = this.recipes.findIndex((r) => r.id === id);
+            if (foundRecipeIndex >= 0){
+                return of(this.recipes[foundRecipeIndex]);
+            }else {
+                return throwError('Recipe not found!');
+            }
         } else {
             return this.http.get<Recipe>(this.url + 'recipes/' + id + '.json')
                 .pipe(
                     map((dbRecipe) => {
-                        return {
-                            ...dbRecipe,
-                            id: id,
-                        };
+                        return dbRecipe ? {...dbRecipe, id: id} : null;
                     }),
                     //-- because the recipes are not yet loaded from Firebase,
                     //-- fetch the recipes so updating and deleting works correctly
                     tap(() => {
                         this.fetchRecipes().subscribe(() => console.log('All recipes loaded in the background.'))
+                    }),
+                    catchError(() => {
+                        return throwError('Recipe not found!')
                     })
                 )
         }

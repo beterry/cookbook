@@ -25,12 +25,21 @@ export class RecipeDetailsComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        const id = this.route.snapshot.paramMap.get('id') || "000";
+        const id = this.route.snapshot.paramMap.get('id');
         this.recipeService
             .getRecipe(id)
-            .subscribe((recipe) => {
-                this.recipe = recipe;
-            });
+            .subscribe(
+                (recipe) => {
+                    if (recipe){
+                        this.recipe = recipe;
+                    }else {
+                        this.handleRecipeNotFound();
+                    }
+                },
+                (error) => {
+                    this.handleRecipeNotFound();
+                }
+            );
     }
 
     handleTab(selected: string): void{
@@ -48,5 +57,10 @@ export class RecipeDetailsComponent implements OnInit {
     handleAddToList(){
         this.shoppingListService.addIngredients(this.recipe!.ingredients);
         this.showActions = false;
+    }
+
+    handleRecipeNotFound(){
+        console.log('Recipe not found.')
+        this.router.navigate(['/recipes']);
     }
 }

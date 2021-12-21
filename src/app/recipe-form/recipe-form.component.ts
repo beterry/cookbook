@@ -59,9 +59,17 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
         }else {
             this.getRecipe()
                 .pipe(
-                    tap(recipe => this.recipe = recipe)
+                    tap(recipe => {
+                        this.recipe = recipe
+                    })
                 )
-                .subscribe(recipe => this.initForm(recipe))
+                .subscribe(recipe => {
+                    if (recipe){
+                        this.initForm(recipe)
+                    }else {
+                        this.handleRecipeNotFound();
+                    }
+                })
         }
 
         this.dialogDeleteSubscription = this.dialogService.dispatch.subscribe(dialog => {
@@ -307,5 +315,10 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
             time: '',
             ingredients: this.builder.array([])
         })
+    }
+
+    handleRecipeNotFound(){
+        console.log('Recipe not found!');
+        this.router.navigate(['recipes']);
     }
 }
