@@ -5,7 +5,10 @@
 
     <!-- HEADER -->
     <div class="recipe-name">
-        <h1>{{recipe.name}}</h1>
+        <div>
+            <h1>{{recipe.name}}</h1>
+            <p *ngIf="recipe.source" class="source">adapted from <span>{{recipe.source}}</span></p>
+        </div>
         <div class="actions-mobile" appDropdown>
             <button class="btn-icon">
                 <span class="material-icons">

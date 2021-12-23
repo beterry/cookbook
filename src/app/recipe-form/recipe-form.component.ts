@@ -102,6 +102,7 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
             this.recipeForm = this.builder.group({
                 name: [recipe.name, Validators.required],
                 imageURL: [recipe.imageURL, Validators.required],
+                source: recipe.source,
                 ingredients: this.composeIngredientFormArray(recipe.ingredients),
                 prep: this.composePrepFormArray(recipe.prep),
                 instructions: this.composeInstructionsFormArray(recipe.instructions),
@@ -110,6 +111,7 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
             this.recipeForm = this.builder.group({
                 name: ['', Validators.required],
                 imageURL: ['', Validators.required],
+                source: '',
                 ingredients: this.builder.array([]),
                 prep: this.builder.array([]),
                 instructions: this.builder.array([]),

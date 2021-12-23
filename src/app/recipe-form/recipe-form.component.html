@@ -31,6 +31,12 @@
                     <input id="image" type="text" formControlName="imageURL" placeholder="https://www.image.com/example">
                     <img *ngIf="recipeForm.value.imageURL" class="img-preview" [src]="recipeForm.value.imageURL" alt=""/>
                 </div>
+
+                <!-- NAME -->
+                <div class="form-control">
+                    <label for="source">Source</label>
+                    <input id="source" type="text" formControlName="source" placeholder="Mealime">
+                </div>
             </section>
         
             <!-- INGREDIENTS -->

@@ -51,7 +51,7 @@ export class RecipeService {
             return this.http.get<Recipe>(this.url + 'recipes/' + id + '.json')
                 .pipe(
                     map((dbRecipe) => {
-                        return dbRecipe ? {...dbRecipe, id: id} : null;
+                        return this.composeRecipe(dbRecipe);
                     }),
                     //-- because the recipes are not yet loaded from Firebase,
                     //-- fetch the recipes so updating and deleting works correctly
@@ -128,6 +128,24 @@ export class RecipeService {
             })
     }
 
+    composeRecipe(recipeFromFb: any): Recipe | null{
+        if (recipeFromFb){
+            return {
+                ...recipeFromFb,
+                source: recipeFromFb.source ? recipeFromFb.source : '',
+                ingredients: recipeFromFb.ingredients
+                    ? recipeFromFb.ingredients
+                    : [],
+                prep: recipeFromFb.prep ? recipeFromFb.prep : [],
+                instructions: recipeFromFb.instructions
+                    ? recipeFromFb.instructions
+                    : [],
+            }
+        }else {
+            return null;
+        }
+    }
+
     composeRecipeArray(recipesFromFb: any): Recipe[]{
         let recipeList: Recipe[] = [];
         //-- transform data object from db into an array of recipes
@@ -136,6 +154,7 @@ export class RecipeService {
             recipeList.push({
                 ...currentRecipe,
                 id: recipeID,
+                source: currentRecipe.source ? currentRecipe.source : '',
                 ingredients: currentRecipe.ingredients
                     ? currentRecipe.ingredients
                     : [],

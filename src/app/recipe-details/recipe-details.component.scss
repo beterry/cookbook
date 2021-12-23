@@ -17,6 +17,17 @@
     }
 }
 
+.source{
+    font-style: italic;
+    color: var(--gray-text);
+    margin-top: 4px;
+
+    span{
+        font-weight: 700;
+        color: var(--primary);
+    }
+}
+
 .recipe-layout{
     display: grid;
     grid-template-columns: 100%;
