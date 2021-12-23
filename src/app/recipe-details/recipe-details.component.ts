@@ -31,7 +31,7 @@ export class RecipeDetailsComponent implements OnInit {
             .subscribe(
                 (recipe) => {
                     if (recipe){
-                        this.recipe = recipe;
+                        this.recipe = {...recipe, id: id};
                     }else {
                         this.handleRecipeNotFound();
                     }
