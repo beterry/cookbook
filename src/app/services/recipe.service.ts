@@ -43,7 +43,7 @@ export class RecipeService {
         if (this.loadedFromFirebase){
             const foundRecipeIndex = this.recipes.findIndex((r) => r.id === id);
             if (foundRecipeIndex >= 0){
-                return of(this.recipes[foundRecipeIndex]);
+                return of(JSON.parse(JSON.stringify(this.recipes[foundRecipeIndex])));
             }else {
                 return throwError('Recipe not found!');
             }
