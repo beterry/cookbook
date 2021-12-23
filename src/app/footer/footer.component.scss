@@ -1,0 +1,16 @@
+footer{
+    padding: var(--spacer);
+}
+
+p{
+    text-align: center;
+    color: var(--gray-text);
+}
+
+a{
+    text-decoration: underline;
+
+    &:hover{
+        color: var(--primary);
+    }
+}

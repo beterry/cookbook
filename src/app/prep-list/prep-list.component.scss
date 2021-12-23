@@ -1,10 +1,14 @@
 .step{
     display: block;
-    padding: 16px;
+    padding: var(--spacer);
 
     display: grid;
     grid-template-columns: 100%;
     gap: 16px;
+
+    @media screen and (min-width: 600px) {
+        padding: var(--spacer-lg);
+    }
 }
 
 .step:not(:last-of-type){

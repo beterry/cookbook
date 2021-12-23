@@ -23,6 +23,12 @@
 
 .recipe-card{
     position: relative;
+
+    &:hover{
+        h3{
+            color: var(--primary);
+        }
+    }
 }
 
 .multi-select{
@@ -31,10 +37,25 @@
     height: 50px;
     top: 0;
     right: 0;
-    background: radial-gradient(circle, white 25%, transparent 70%);
     
     &:hover{
         background-color: transparent;
+    }
+}
+
+.check-box{
+    border: 2px solid var(--primary);
+    border-radius: 4px;
+    width: 24px;
+    height: 24px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.selected{
+        background-color: var(--primary);
+        color: white;
     }
 }
 
@@ -49,6 +70,12 @@ img{
     object-fit: cover;
     border-radius: 4px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.253);
+    transition: transform 0.25s;
+
+    &:hover{
+        transform: scale(1.05);
+        z-index: 1;
+    }
 }
 
 h3{
@@ -84,6 +111,7 @@ h3{
 @media screen and (min-width: 600px) {
     .recipe-grid{
         --col: 3;
+        gap: var(--spacer-lg) var(--spacer);
     }
 }
 

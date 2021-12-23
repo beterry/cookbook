@@ -21,6 +21,7 @@ import { DialogComponent } from './dialog/dialog.component';
 import { LoginComponent } from './login/login.component';
 import { UserInterceptorService } from './services/user-interceptor.service';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.compo
     DropdownDirective,
     DialogComponent,
     LoginComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

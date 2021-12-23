@@ -22,12 +22,11 @@
                 <h3>{{ recipe.name }}</h3>
             </a>
             <button class="multi-select btn-icon" (click)="handleSelectRecipe(recipe.id)">
-                <span *ngIf="!isSelected(recipe.id)" class="material-icons">
-                    check_box_outline_blank
-                </span>
-                <span *ngIf="isSelected(recipe.id)" class="material-icons">
-                    check_box
-                </span>
+                <div class="check-box" [class.selected]="isSelected(recipe.id)">
+                    <span *ngIf="isSelected(recipe.id)" class="material-icons">
+                        check
+                    </span>
+                </div>
             </button>
         </div>
     </div>

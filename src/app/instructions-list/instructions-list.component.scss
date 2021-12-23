@@ -1,6 +1,10 @@
 .instruction{
     display: flex;
-    padding: 16px;
+    padding: var(--spacer);
+
+    @media screen and (min-width: 600px) {
+        padding: var(--spacer-lg);
+    }
 }
 
 .instruction:not(:last-of-type){
