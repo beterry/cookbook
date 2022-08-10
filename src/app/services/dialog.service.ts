@@ -17,6 +17,7 @@ interface Dispatch {
     providedIn: 'root',
 })
 export class DialogService {
+    // user Behavior Subject so components get correct state when initially subscribing
     dialog = new BehaviorSubject<DialogInit>({
         open: false,
         action: '',

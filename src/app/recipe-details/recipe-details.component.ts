@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Location } from '@angular/common';
 import { RecipeService } from '../services/recipe.service';
 import { Recipe } from '../recipe.model';
 import { ShoppingListService } from '../services/shopping-list.service';
-import { tap } from 'rxjs/operators';
 
 @Component({
     selector: 'app-recipe-details',
@@ -20,12 +18,14 @@ export class RecipeDetailsComponent implements OnInit {
         private route: ActivatedRoute,
         private recipeService: RecipeService,
         private shoppingListService: ShoppingListService,
-        private location: Location,
         private router: Router,
     ) {}
 
     ngOnInit(): void {
+        // get the recipe id from url parameters
         const id = this.route.snapshot.paramMap.get('id');
+
+        // get the recipe from the recipe service
         this.recipeService
             .getRecipe(id)
             .subscribe(
@@ -42,6 +42,7 @@ export class RecipeDetailsComponent implements OnInit {
             );
     }
 
+    // tab buttons
     handleTab(selected: string): void{
         if (selected === this.tab){
             return;
@@ -50,15 +51,18 @@ export class RecipeDetailsComponent implements OnInit {
         this.tab = selected;
     }
 
+    // mobile actions button
     toggleActionDropdown(){
         this.showActions = !this.showActions;
     }
 
+    // add to list button
     handleAddToList(){
         this.shoppingListService.addIngredients(this.recipe!.ingredients);
         this.showActions = false;
     }
 
+    // naviagate to the recipes gallery if the recipe can't be found
     handleRecipeNotFound(){
         console.log('Recipe not found.')
         this.router.navigate(['/recipes']);

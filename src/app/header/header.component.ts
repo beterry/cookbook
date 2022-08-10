@@ -9,9 +9,11 @@ import { UserService } from '../services/user.service';
     styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+    // subscriptions
     userSub: Subscription;
     listSub: Subscription;
     
+    // props
     isAdmin: boolean = false;
     listQuantity: number = 0;
 
@@ -21,10 +23,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit(): void {
+        // listen for the user changing
+        // set isAdmin to whether user exists
         this.userSub = this.userService.user.subscribe(user => {
             this.isAdmin = !!user;
         })
 
+        // listen for ingredients being added to the shopping list
         this.listSub = this.shoppingListService.shoppingListChanged.subscribe(list => {
             this.listQuantity = list.length;
         })
@@ -35,6 +40,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.listSub.unsubscribe();
     }
 
+    // logout button
     handleLogout() {
         this.userService.logout();
     }

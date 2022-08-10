@@ -1,5 +1,6 @@
 import { Directive, ElementRef, HostBinding, HostListener } from '@angular/core';
 
+// used for toggling recipe actions on mobile
 @Directive({
     selector: '[appDropdown]',
 })

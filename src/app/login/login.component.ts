@@ -16,19 +16,23 @@ export class LoginComponent implements OnInit {
         private router: Router,
     ) {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void { }
 
+    // log in button
     handleSubmit(form: {email: string, password: string}){
         this.isLoading = true;
         this.error = null;
 
+        // subscribe to the result of user service authenticating the user information
         this.userService.login(form.email, form.password)
             .subscribe(
+                // success
                 res => {
                     console.log(res);
                     this.isLoading = false;
                     this.router.navigate(['/recipes']);
                 },
+                // error
                 errorMessage => {
                     console.log(errorMessage);
                     this.error = errorMessage;

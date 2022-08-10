@@ -9,7 +9,7 @@ import { Ingredient } from '../recipe.model';
 export class IngredientListComponent implements OnInit {
     @Input() ingredients?: Ingredient[];
 
-    constructor() {}
+    constructor() { }
 
-    ngOnInit(): void {}
+    ngOnInit(): void { }
 }

@@ -28,9 +28,9 @@ export class PrepStepComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit(): void {
-        //-- a new value is emitted when a new prep step is created (RecipeFormComponent)
-        //-- check to see if this prep step is the new one
-        //-- if it is, enable editing
+        // a new value is emitted when a new prep step is created (RecipeFormComponent)
+        // check to see if this prep step is the new one
+        // if it is, enable editing
         this.editStepSubscription = this.formService.editPrepStep.subscribe(index => {
             if (index === this.stepIndex){
                 this.editStep = true;

@@ -18,7 +18,12 @@ const routes: Routes = [
 ]
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes, {scrollPositionRestoration: 'top'})],
+    imports: [
+        RouterModule.forRoot(routes, {
+            // when navigating with browser buttons, reset the page to the top
+            scrollPositionRestoration: 'top'
+        })
+    ],
     exports: [RouterModule],
 })
 export class AppRoutingModule {}

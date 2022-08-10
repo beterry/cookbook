@@ -14,29 +14,23 @@ export class UserInterceptorService implements HttpInterceptor {
         return this.userService.user.pipe(
             take(1),
             exhaustMap(user => {
-                //-- no token required for GET requests
+                // no token required for GET requests
                 if (req.method === 'GET'){
-                    console.log('Sending GET request. Not editing the request...');
-                    console.log(req.urlWithParams);
                     return next.handle(req);
                 }
 
-                //-- don't edit the request when signing in
+                // don't edit the request when signing in
                 if (req.url.includes('signInWithPassword')){
-                    console.log('Signing in. Not editing the request...');
-                    console.log(req.urlWithParams);
                     return next.handle(req);
                 }
 
-                //-- if not a GET request and there is no user, don't even try
+                // if not a GET request and there is no user, don't even try
                 if (!user){
-                    console.log('No user. Not sending the request...');
                     return EMPTY;
                 }
 
-                console.log('Adding token to request...');
-                console.log(req.urlWithParams);
-
+                // user is logged in and we are not sending a GET request
+                // must add authentication to request
                 const modifiedReq = req.clone({
                     params: new HttpParams().set('auth', user.token)
                 })

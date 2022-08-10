@@ -14,7 +14,7 @@ export class ShoppingListItemComponent implements OnInit {
 
     ngOnInit(): void {}
 
-    toggleCompleted(){
+    toggleCompleted() {
         this.completed = !this.completed;
     }
 }

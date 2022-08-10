@@ -12,6 +12,7 @@ export class AppComponent implements OnInit {
     ){}
 
     ngOnInit(): void {
+        // check to see whether user info is saved in local storage
         this.userService.autoLogin();
     }
 }

@@ -9,7 +9,7 @@ import { Instruction } from '../recipe.model';
 export class InstructionsListComponent implements OnInit {
     @Input() instructions?: Instruction[];
 
-    constructor() {}
+    constructor() { }
 
-    ngOnInit(): void {}
+    ngOnInit(): void { }
 }

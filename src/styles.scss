@@ -1,8 +1,9 @@
+/* global styles */
+
 @use './styles/padding';
 @use './styles/buttons';
 @use './styles/forms';
 
-/* You can add global styles to this file, and also import other style files */
 :root{
     --primary: #206a5d;
     --primary-75: hsla(169, 54%, 27%, 0.75);

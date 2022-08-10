@@ -1,4 +1,3 @@
-
 @mixin btn {
     background-color: transparent;
     border: none;
@@ -29,52 +28,52 @@
     }
 }
 
-.btn-text{
+.btn-text {
     @include btn;
 }
 
-.btn-outline{
+.btn-outline { 
     @include btn;
     padding: 0 16px;
     border: 1px solid var(--primary);
 }
 
-.btn-contained{
+.btn-contained {
     @include btn;
     padding: 0 16px;
     background-color: var(--primary);
     color: white;
     box-shadow: 0px 2px 4px rgba($color: #000000, $alpha: .1);
     
-    &:hover{
+    &:hover {
         background-color: var(--primary-v);
         box-shadow: 0px 2px 3px rgba($color: #000000, $alpha: .1);
     }
 
-    &:disabled{
-        &:hover{
+    &:disabled {
+        &:hover {
             background-color: var(--primary);
         }
     }
 
-    &.danger{
+    &.danger {
         background-color: var(--danger);
     }
 
-    &.success{
+    &.success {
         background-color: var(--bright);
     }
 }
 
-.btn-icon{
+.btn-icon {
     @include btn;
     width: 40px;
 
-    &.danger{
+    &.danger {
         color: var(--danger);
     }
 
-    &.muted{
-        color: var(--gray-md)
+    &.muted {
+        color: var(--gray-md);
     }
 }

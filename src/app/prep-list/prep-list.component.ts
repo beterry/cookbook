@@ -9,7 +9,7 @@ import { Prep } from '../recipe.model';
 export class PrepListComponent implements OnInit {
     @Input() prepList?: Prep[];
 
-    constructor() {}
+    constructor() { }
 
-    ngOnInit(): void {}
+    ngOnInit(): void { }
 }

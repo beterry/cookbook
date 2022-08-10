@@ -26,8 +26,10 @@ export class RecipeGalleryComponent implements OnInit {
         const selectedRecipeIndex = this.selectedRecipes.indexOf(recipeId);
 
         if (selectedRecipeIndex > -1){
+            // recipe is already selected, unselect it
             this.selectedRecipes.splice(selectedRecipeIndex, 1);
-        }else {
+        } else {
+            // recipe is not already selected, add it to the array of selected recipes
             this.selectedRecipes.push(recipeId);
         }
     }
@@ -37,9 +39,10 @@ export class RecipeGalleryComponent implements OnInit {
     }
 
     addRecipesToList() {
+        // add all selected recipe ingredients to the shopping list
         this.shoppingListService.addRecipesToList(this.selectedRecipes);
 
-        //-- reset selected recipes
+        // reset selected recipes
         this.selectedRecipes = [];
     }
 }

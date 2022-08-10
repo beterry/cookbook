@@ -1,8 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormArray, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, FormArray, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RecipeService } from '../services/recipe.service';
-import { Location } from '@angular/common';
 import { Ingredient, Recipe, Prep, Instruction } from '../recipe.model';
 import { Observable, Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -21,14 +20,13 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
     recipeForm: FormGroup;
     dialogDeleteSubscription: Subscription;
 
+    // get functions that return recipe info as form arrays
     get ingredients(){
         return this.recipeForm.get('ingredients') as FormArray;  
     }
-
     get prep(){
         return this.recipeForm.get('prep') as FormArray;  
     }
-
     get instructions(){
         return this.recipeForm.get('instructions') as FormArray;  
     }
@@ -46,17 +44,18 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
         private route: ActivatedRoute,
         private recipeService: RecipeService,
         private formService: RecipeFormService,
-        private location: Location,
         private builder: FormBuilder,
         private dialogService: DialogService,
     ) {}
 
     ngOnInit(): void {
+        // determine whether user is creating or editing a recipe
         this.formType = this.route.snapshot.paramMap.get('form') || 'new';
 
         if (this.formType === 'new'){
             this.initForm();
         }else {
+            // get recipe data from service
             this.getRecipe()
                 .pipe(
                     tap(recipe => {
@@ -66,12 +65,13 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
                 .subscribe(recipe => {
                     if (recipe){
                         this.initForm(recipe)
-                    }else {
+                    } else {
                         this.handleRecipeNotFound();
                     }
                 })
         }
 
+        // listen for a dialog to confirm recipe deletion
         this.dialogDeleteSubscription = this.dialogService.dispatch.subscribe(dialog => {
             if (dialog.action === 'DELETE_RECIPE'){
                 this.recipeService.deleteRecipe(this.id);
@@ -81,13 +81,13 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        //-- reset the form service
+        // reset the form service
 
-        //-- makes sure if you navigate back to the same recipe, no steps are open
+        // makes sure if you navigate back to the same recipe, no steps are open
         this.formService.editPrepStep.next(-1);
         this.formService.editInstructionStep.next(-1);
 
-        //-- unsubscribe so this form is no longer listening for the dialog
+        // unsubscribe so this form is no longer listening for the dialog
         this.dialogDeleteSubscription.unsubscribe();
     }
 
@@ -97,7 +97,7 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
     }
 
     initForm(recipe?: Recipe): void {
-        //-- insert recipe details into the form
+        // insert recipe details into the form
         if (recipe){
             this.recipeForm = this.builder.group({
                 name: [recipe.name, Validators.required],
@@ -107,7 +107,8 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
                 prep: this.composePrepFormArray(recipe.prep),
                 instructions: this.composeInstructionsFormArray(recipe.instructions),
             })
-        }else {
+        // start form as blank
+        } else {
             this.recipeForm = this.builder.group({
                 name: ['', Validators.required],
                 imageURL: ['', Validators.required],
@@ -119,22 +120,26 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
         }
     }
 
+    // save button
     handleSubmit(){
         if (this.formType === 'new'){
             this.recipeService.addRecipe(this.recipeForm.value);
             this.router.navigate(['/recipes']);
         }else{
-            //-- indicate loading on the screen
             this.recipeService.updateRecipe(this.id, this.recipeForm.value)
             this.router.navigate(['/recipe', 'details', this.id]);
         }
     }
 
+    //============================================
+    // USER INTERACTION
+    //============================================
+
     handleDeleteRecipe(){
         if (this.formType === 'new'){
             this.router.navigate(['/recipes']);
         }else {
-            //-- open dialog to confirm the deletion action
+            // open dialog to confirm the deletion action
             this.dialogService.dialog.next({
                 open: true, 
                 action: 'DELETE_RECIPE',
@@ -158,8 +163,8 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
     handleAddPrepStep(){
         this.prep.push(this.getBlankPrepStep());
 
-        //-- emits the index of the new step
-        //-- this is caught in the component and enables edit mode
+        // emits the index of the new step
+        // this is caught in the component and enables edit mode
         this.formService.editPrepStep.next(this.prep.length - 1);
     }
 
@@ -168,29 +173,29 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
     }
 
     handlePrepStepUp(index: number){
-        //-- step is already at the top
+        // step is already at the top
         if (index <= 0){
             return;
         }
 
-        //-- grab control that's moving
+        // grab control that's moving
         const movingStep = this.prep.controls[index];
 
-        //-- remove and then re-add
+        // remove and then re-add
         this.prep.removeAt(index);
         this.prep.insert(index - 1, movingStep);
     }
 
     handlePrepStepDown(index: number){
-        //-- step is already at the bottom
+        // step is already at the bottom
         if (index >= this.prep.length){
             return;
         }
 
-        //-- grab control that's moving
+        // grab control that's moving
         const movingStep = this.prep.controls[index];
 
-        //-- remove and then re-add
+        // remove and then re-add
         this.prep.removeAt(index);
         this.prep.insert(index + 1, movingStep);
     }
@@ -198,8 +203,8 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
     handleAddInstruction(){
         this.instructions.push(this.getBlankInstruction());
 
-        //-- emits the index of the new step
-        //-- this is caught in the component and enables edit mode
+        // emits the index of the new step
+        // this is caught in the component and enables edit mode
         this.formService.editInstructionStep.next(this.instructions.length - 1);
     }
 
@@ -208,32 +213,37 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
     }
 
     handleInstructionUp(index: number){
-        //-- step is already at the top
+        // step is already at the top
         if (index <= 0){
             return;
         }
 
-        //-- grab control that's moving
+        // grab control that's moving
         const movingStep = this.instructions.controls[index];
 
-        //-- remove and then re-add
+        // remove and then re-add
         this.instructions.removeAt(index);
         this.instructions.insert(index - 1, movingStep);
     }
 
     handleInstructionDown(index: number){
-        //-- step is already at the bottom
+        // step is already at the bottom
         if (index >= this.instructions.length){
             return;
         }
 
-        //-- grab control that's moving
+        // grab control that's moving
         const movingStep = this.instructions.controls[index];
 
-        //-- remove and then re-add
+        // remove and then re-add
         this.instructions.removeAt(index);
         this.instructions.insert(index + 1, movingStep);
     }
+
+    //============================================
+    // FORM UTILITIES
+    // take data from the API and construct Angular form components
+    //============================================
 
     composeIngredientFormArray(ingredients: Ingredient[]):FormArray {
         let ingredientFormArray = this.builder.array([]);
@@ -258,7 +268,7 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
 
         if (prepSteps.length){
             prepSteps.forEach(step => {
-                //-- 1. create a child FormArray for the step's ingredients
+                // 1. create a child FormArray for the step's ingredients
                 let ingredientFormArray = this.builder.array([]);
                 if (step.ingredients){
                     step.ingredients.forEach(ingredient => {
@@ -266,7 +276,7 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
                     })
                 }
 
-                //-- 2. assign remaining value to parent FormArray
+                // 2. assign remaining value to parent FormArray
                 prepFormArray.push(this.builder.group({
                     name: [step.name, Validators.required],
                     description: step.description ? step.description : '',
@@ -278,7 +288,7 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
         return prepFormArray;
     }
 
-    getBlankPrepStep(): FormGroup{
+    getBlankPrepStep(): FormGroup {
         return this.builder.group({
             name: ['', Validators.required],
             description: '',
@@ -286,12 +296,12 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
         })
     }
 
-    composeInstructionsFormArray(instructions: Instruction[]): FormArray{
+    composeInstructionsFormArray(instructions: Instruction[]): FormArray {
         let instructionsFormArray = this.builder.array([]);
 
         if (instructions.length){
             instructions.forEach(step => {
-                //-- 1. create a child FormArray for the step's ingredients
+                // 1. create a child FormArray for the step's ingredients
                 let ingredientFormArray = this.builder.array([]);
                 if (step.ingredients){
                     step.ingredients.forEach(ingredient => {
@@ -299,7 +309,7 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
                     })
                 }
 
-                //-- 2. assign remaining value to parent FormArray
+                // 2. assign remaining value to parent FormArray
                 instructionsFormArray.push(this.builder.group({
                     text: [step.text, Validators.required],
                     time: step.time ? step.time : '',
@@ -311,7 +321,7 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
         return instructionsFormArray;
     }
 
-    getBlankInstruction(): FormGroup{
+    getBlankInstruction(): FormGroup { 
         return this.builder.group({
             text: ['', Validators.required],
             time: '',
